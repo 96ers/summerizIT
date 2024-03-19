@@ -10,10 +10,14 @@ package-mode = false
 python = "^3.11"
 uvicorn = "^0.28.0"
 fastapi = "^0.110.0"
+python-dotenv = "^1.0.1"
+pydantic-settings = "^2.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.1.0"
+black = "^24.3.0"
+isort = "^5.13.2"
 
 [build-system]
 requires = ["poetry-core"]
