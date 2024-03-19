@@ -1,46 +1,68 @@
-Install conda environment
+## Go to the server directory
 
 ```bash
-conda env create -f environment.yml
+cd server
 ```
 
-Activate conda environment
+## Environment Variables
+
+ssCopy the example environment file to a new file called `.env`:
 
 ```bash
-conda activate venv
+cp .env.example .env
 ```
 
-Install dev dependencies
+## Install Dependencies
+
+Install development dependencies
 
 ```bash
 poetry install
 ```
 
-Install product dependencies
+Install production dependencies
 
 ```bash
 poetry install --only main
 ```
 
-Add package
+## Add new dependency
+
+To add a new package:
 
 ```bash
 poetry add <package>
 ```
 
-Add dev package
+To add a new development package:
 
 ```bash
 poetry add <package> --group dev
 ```
 
-Start server
+## Dependency Lockfile
+
+Check lockfile
+
+```bash
+poetry check --lock
+```
+
+Update Lockfile
+
+```bash
+poetry lock
+```
+
+## Running server
 
 ```bash
 python main.py
 ```
 
-Check format code
+## Code Formatting and Linting
+
+Check code formatting
 
 ```bash
 black ./ --check
@@ -54,25 +76,13 @@ black ./
 isort ./ --profile black
 ```
 
-Check lockfile
-
-```bash
-poetry check --lock
-```
-
-Lockfile
-
-```bash
-poetry lock
-```
-
-Linter
+Linting
 
 ```bash
 pylint ./src
 ```
 
-Test
+## Testing
 
 ```bash
 pytest ...... (TODO)

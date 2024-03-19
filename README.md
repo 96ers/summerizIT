@@ -37,13 +37,13 @@ What did you learn while building this project? What challenges did you face and
 Clone the project
 
 ```bash
-git clone https://link-to-project
+git clone https://github.com/96ers/summerizIT.git
 ```
 
 Go to the project directory
 
 ```bash
-cd my-project
+cd summerizIT
 ```
 
 Create environment by conda
@@ -56,18 +56,6 @@ Active conda environment
 
 ```bash
 conda activate venv
-```
-
-Install dependencies
-
-```bash
-npm install
-```
-
-Start the server
-
-```bash
-npm run start
 ```
 
 ## Environment Variables
