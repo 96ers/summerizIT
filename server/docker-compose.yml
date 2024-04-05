@@ -27,3 +27,4 @@ services:
     environment:
       PMA_HOST: mysql
       PMA_PORT: ${MYSQL_INTERNAL_PORT}
+
