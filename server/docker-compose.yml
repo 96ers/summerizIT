@@ -23,7 +23,8 @@ services:
     container_name: "dev_phpmyadmin"
     restart: always
     ports:
-      - ${PMA_INTERNAL_PORT}:${PMA_PUBLIC_PORT}
+      - ${PMA_PUBLIC_PORT}:${PMA_INTERNAL_PORT}
     environment:
-      PMA_HOST: ${PMA_HOST}
-      PMA_PORT: ${PMA_PORT}
+      PMA_HOST: mysql
+      PMA_PORT: ${MYSQL_INTERNAL_PORT}
+
