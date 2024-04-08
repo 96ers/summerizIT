@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dev_mysql
+    restart: always
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - "${MYSQL_PUBLIC_PORT}:${MYSQL_INTERNAL_PORT}"
+    volumes:
+      - ./data/db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    env_file:
+      - ./.env
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: "dev_phpmyadmin"
+    restart: always
+    ports:
+      - ${PMA_PUBLIC_PORT}:${PMA_INTERNAL_PORT}
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: ${MYSQL_INTERNAL_PORT}
+

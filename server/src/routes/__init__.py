@@ -1,0 +1,15 @@
+"""API Router."""
+
+from fastapi import APIRouter
+
+from .v1 import v1_router
+
+router = APIRouter()
+
+router.include_router(v1_router, prefix="/v1")
+
+
+@router.get("")
+def home():
+    """Home route."""
+    return "Welcome to My API"
