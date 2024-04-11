@@ -1,30 +1,33 @@
-version: '3'
+version: '3.8'
 
 services:
   mysql:
     image: mysql:8.0
     container_name: dev_mysql
-    restart: always
     ports:
-      # <Port exposed> : < MySQL Port running inside container>
-      - "${MYSQL_PUBLIC_PORT}:${MYSQL_INTERNAL_PORT}"
+      - '${MYSQL_PORT}:${MYSQL_PORT}'
     volumes:
       - ./data/db:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    env_file:
-      - ./.env
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOTPASSWORD}
+    networks:
+      - awesome_network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: "dev_phpmyadmin"
-    restart: always
+    container_name: dev_phpmyadmin
     ports:
-      - ${PMA_PUBLIC_PORT}:${PMA_INTERNAL_PORT}
+      - '9090:80'
     environment:
       PMA_HOST: mysql
-      PMA_PORT: ${MYSQL_INTERNAL_PORT}
-
+      PMA_PORT: ${MYSQL_PORT}
+    networks:
+      - awesome_network
+  
+networks:
+  awesome_network:
+    name: awesome_network
+    driver: bridge
