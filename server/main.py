@@ -1,11 +1,12 @@
 import uvicorn
 
-from src.configs.server import server_config
+from src.configs import config
 
 if __name__ == "__main__":
-    print("Server is running on environment: ", server_config.ENVIRONMENT)
+    print(config.server)
+    print(config.mysql)
     uvicorn.run(
         app="src.server:server",
-        reload=True,
-        port=server_config.PORT,
+        reload=config.server.RELOAD,
+        port=config.server.PORT,
     )

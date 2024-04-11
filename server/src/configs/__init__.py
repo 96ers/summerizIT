@@ -1,12 +1,3 @@
-"""Configs module."""
+from .config import config
 
-import os
-
-from dotenv import load_dotenv
-
-load_dotenv()
-
-
-def get_env(key: str) -> str:
-    """Get the environment variable value."""
-    return os.environ[key]
+__all__ = ["config"]
