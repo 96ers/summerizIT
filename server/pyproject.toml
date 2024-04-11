@@ -12,6 +12,10 @@ uvicorn = "^0.28.0"
 fastapi = "^0.110.0"
 python-dotenv = "^1.0.1"
 pydantic-settings = "^2.2.1"
+sqlalchemy = "^2.0.29"
+mysql-connector-python = "^8.3.0"
+pydantic = {extras = ["email"], version = "^2.6.4"}
+passlib = "^1.7.4"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -24,4 +28,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-line-length = 79
+line-length = 100
