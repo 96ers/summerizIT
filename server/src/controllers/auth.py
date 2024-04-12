@@ -4,7 +4,7 @@ from .base import BaseController
 
 from src.models import User
 from src.repositories import UserRepository
-from src.exceptions import BadRequestException
+from src.utils.exceptions import BadRequestException
 
 from src.utils import PasswordHandler
 

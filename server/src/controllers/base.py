@@ -4,7 +4,7 @@ from uuid import UUID
 from pydantic import BaseModel
 
 from src.database import Base
-from src.exceptions import NotFoundException
+from src.utils.exceptions import NotFoundException
 from src.repositories import BaseRepository
 
 ModelType = TypeVar("ModelType", bound=Base)
@@ -33,7 +33,10 @@ class BaseController(Generic[ModelType]):
         )
         if not db_obj:
             raise NotFoundException(
-                f"{self.model_class.__tablename__.title()} with id: {id} does not exist"
+                message=(
+                    f"{self.model_class.__tablename__.title()} "
+                    f"with id: {id} does not exist"
+                )
             )
 
         return db_obj
@@ -54,7 +57,10 @@ class BaseController(Generic[ModelType]):
         )
         if not db_obj:
             raise NotFoundException(
-                f"{self.model_class.__tablename__.title()} with id: {uuid} does not exist"
+                message=(
+                    f"{self.model_class.__tablename__.title()} "
+                    f"with id: {uuid} does not exist"
+                )
             )
         return db_obj
 
