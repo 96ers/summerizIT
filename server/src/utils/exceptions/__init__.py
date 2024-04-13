@@ -6,6 +6,8 @@ from .base import (
     NotFoundException,
     UnauthorizedException,
     UnprocessableEntity,
+    JWTDecodeError,
+    JWTExpiredError,
 )
 
 __all__ = [
@@ -16,4 +18,6 @@ __all__ = [
     "UnauthorizedException",
     "UnprocessableEntity",
     "DuplicateValueException",
+    "JWTDecodeError",
+    "JWTExpiredError",
 ]
