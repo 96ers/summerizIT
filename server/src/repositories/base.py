@@ -32,6 +32,30 @@ class BaseRepository(Generic[ModelType]):
         self.session.refresh(model)
         return model
 
+    def update_one(
+        self,
+        conditions: dict[str, Any],
+        attributes: dict[str, Any]
+    ) -> None:
+        """
+        Update the model instance that match the given condition.
+
+        :param conditions: The conditions to match the models.
+        :param attributes: The new attributes for the models.
+        """
+        model = (
+            self.session.query(self.model_class)
+            .filter_by(**conditions)
+            .first()
+        )
+        if model is None:
+            return model
+        for key, value in attributes.items():
+            setattr(model, key, value)
+        self.session.commit()
+        self.session.refresh(model)
+        return model
+
     def get_all(
         self, skip: int = 0, limit: int = 100, join_: set[str] | None = None
     ) -> list[ModelType]:

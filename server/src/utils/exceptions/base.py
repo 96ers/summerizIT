@@ -45,3 +45,13 @@ class DuplicateValueException(CustomException):
     code = HTTPStatus.UNPROCESSABLE_ENTITY
     error_code = HTTPStatus.UNPROCESSABLE_ENTITY
     message = HTTPStatus.UNPROCESSABLE_ENTITY.description
+
+
+class JWTDecodeError(CustomException):
+    code = 401
+    message = "Invalid token"
+
+
+class JWTExpiredError(CustomException):
+    code = 401
+    message = "Token expired"
