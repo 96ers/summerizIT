@@ -64,3 +64,40 @@ class AuthController(BaseController[User]):
                 payload={"user_id": user.userId, "email": user.email},
             ),
         )
+
+    def login(self, email: EmailStr, password: str) -> Token:
+        user = self.repository.get_by_email(email)
+        if not user:
+            raise BadRequestException("Invalid credentials")
+        if not PasswordHandler.verify(user.password, password):
+            raise BadRequestException("Invalid credentials")
+
+        publicKey = KeyGenerator.generate_key()
+        privateKey = KeyGenerator.generate_key()
+
+        key_model = self.key_repository.update_one(
+            conditions={"userId": user.userId},
+            attributes={
+                "publicKey": publicKey,
+                "privateKey": privateKey,
+            },
+        )
+
+        if (
+            key_model.userId != user.userId
+            or key_model.publicKey != publicKey
+            or key_model.privateKey != privateKey
+        ):
+            raise BadRequestException("Error while register user")
+
+        return Token(
+            user_id=user.userId,
+            access_token=JWTHandler.encode(
+                key=publicKey,
+                payload={"user_id": user.userId, "email": user.email},
+            ),
+            refresh_token=JWTHandler.encode(
+                key=privateKey,
+                payload={"user_id": user.userId, "email": user.email},
+            ),
+        )
