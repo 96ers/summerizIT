@@ -48,10 +48,18 @@ class DuplicateValueException(CustomException):
 
 
 class JWTDecodeError(CustomException):
-    code = 401
+    code = HTTPStatus.UNAUTHORIZED
+    error_code = HTTPStatus.UNAUTHORIZED
     message = "Invalid token"
 
 
 class JWTExpiredError(CustomException):
-    code = 401
+    code = HTTPStatus.UNAUTHORIZED
+    error_code = HTTPStatus.UNAUTHORIZED
     message = "Token expired"
+
+
+class AuthenticationRequiredException(CustomException):
+    code = HTTPStatus.UNAUTHORIZED
+    error_code = HTTPStatus.UNAUTHORIZED
+    message = "Authentication required"

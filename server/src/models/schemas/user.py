@@ -56,3 +56,10 @@ class UserResponse(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class CurrentUser(BaseModel):
+    id: int = Field(None, description="User ID")
+
+    class Config:
+        validate_assignment = True

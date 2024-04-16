@@ -43,11 +43,7 @@ class BaseRepository(Generic[ModelType]):
         :param conditions: The conditions to match the models.
         :param attributes: The new attributes for the models.
         """
-        model = (
-            self.session.query(self.model_class)
-            .filter_by(**conditions)
-            .first()
-        )
+        model = self.get_one(conditions=conditions)
         if model is None:
             return model
         for key, value in attributes.items():
@@ -55,6 +51,16 @@ class BaseRepository(Generic[ModelType]):
         self.session.commit()
         self.session.refresh(model)
         return model
+
+    def get_one(
+        self,
+        conditions: dict[str, Any]
+    ):
+        return (
+            self.session.query(self.model_class)
+            .filter_by(**conditions)
+            .first()
+        )        
 
     def get_all(
         self, skip: int = 0, limit: int = 100, join_: set[str] | None = None

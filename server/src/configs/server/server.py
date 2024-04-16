@@ -6,4 +6,4 @@ class ServerConfig(BaseSettings):
     PORT: int = 8000
     DEBUG: bool = True
     RELOAD: bool = True
-    
+    APIKEY: str = "x-api-key"

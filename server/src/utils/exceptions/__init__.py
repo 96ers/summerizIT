@@ -8,6 +8,7 @@ from .base import (
     UnprocessableEntity,
     JWTDecodeError,
     JWTExpiredError,
+    AuthenticationRequiredException
 )
 
 __all__ = [
@@ -20,4 +21,5 @@ __all__ = [
     "DuplicateValueException",
     "JWTDecodeError",
     "JWTExpiredError",
+    "AuthenticationRequiredException",
 ]

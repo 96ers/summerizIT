@@ -13,6 +13,7 @@ from src.routes import router
 from src.models import Base
 from src.database import engine
 from src.utils.exceptions import CustomException
+from src.middlewares import AuthenticationMiddleware, AuthBackend
 
 from typing import List
 
@@ -53,6 +54,12 @@ def make_middleware() -> List[Middleware]:
             allow_methods=["*"],
             allow_headers=["*"],
         ),
+        Middleware(
+            AuthenticationMiddleware,
+            backend=AuthBackend(),
+            on_error=on_auth_error()
+        )
+
     ]
     return middleware
 
