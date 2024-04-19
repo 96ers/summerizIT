@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 
 from .auth import auth_router
-from src.middlewares import validate_api_key
+from src.middlewares.dependencies import validate_api_key
 
 v1_router = APIRouter()
 

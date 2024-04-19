@@ -13,9 +13,20 @@ from src.routes import router
 from src.models import Base
 from src.database import engine
 from src.utils.exceptions import CustomException
-from src.middlewares import AuthenticationMiddleware, AuthBackend
+from src.middlewares import LoggingMiddleware
 
 from typing import List
+import logging
+
+
+def init_logger() -> logging.Logger:
+    logging.basicConfig(
+        filename="app.log",
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        datefmt="%d-%b-%y %H:%M:%S",
+    )
+    return logging.getLogger()
 
 
 def on_auth_error(request: Request, exc: Exception):
@@ -55,11 +66,9 @@ def make_middleware() -> List[Middleware]:
             allow_headers=["*"],
         ),
         Middleware(
-            AuthenticationMiddleware,
-            backend=AuthBackend(),
-            on_error=on_auth_error()
+            LoggingMiddleware,
+            logger=init_logger()
         )
-
     ]
     return middleware
 
@@ -73,6 +82,7 @@ def create_server() -> FastAPI:
         version="1.0.0",
         docs_url=None if not config.server.DEBUG else "/docs",
         redoc_url=None if not config.server.DEBUG else "/redoc",
+        middleware=make_middleware()
     )
     init_routers(server_)
     init_listeners(server_)
