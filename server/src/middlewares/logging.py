@@ -37,15 +37,21 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         start_time = time.time()
 
         # Request body
-        request_json = await request.json()
+        try:
+            request_json = await request.json()
+        except Exception:
+            request_json = {}
 
         # Process the request
         response = await call_next(request)
 
         # Response body
-        response_body = [chunk async for chunk in response.body_iterator]
-        response.body_iterator = iterate_in_threadpool(iter(response_body))
-        response_body = response_body[0].decode()
+        if request.method != 'GET':
+            response_body = [chunk async for chunk in response.body_iterator]
+            response.body_iterator = iterate_in_threadpool(iter(response_body))
+            response_body = response_body[0].decode()
+        else:
+            response_body = {}
 
         # Calculate response time
         process_time = time.time() - start_time
