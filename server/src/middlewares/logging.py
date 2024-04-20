@@ -9,14 +9,6 @@ from starlette.concurrency import iterate_in_threadpool
 from fastapi import FastAPI
 
 
-logging.basicConfig(
-    filename="server.log",
-    level=logging.INFO,
-    format="%(asctime)s - %(message)s",
-    datefmt="%d-%b-%y %H:%M:%S",
-)
-
-
 class LoggingMiddleware(BaseHTTPMiddleware):
     def __init__(
         self,
