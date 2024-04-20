@@ -19,7 +19,6 @@ class AuthController(BaseController[User]):
         )
 
     def register(self, email: EmailStr, password: str, username: str) -> Token:
-
         # Check if user exists with email
         user = self.repository.get_by_email(email)
         if user:

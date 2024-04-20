@@ -60,7 +60,7 @@ class BaseRepository(Generic[ModelType]):
             self.session.query(self.model_class)
             .filter_by(**conditions)
             .first()
-        )        
+        )
 
     def get_all(
         self, skip: int = 0, limit: int = 100, join_: set[str] | None = None

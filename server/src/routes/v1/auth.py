@@ -1,8 +1,15 @@
 from fastapi import APIRouter, Depends, status
 
-from src.models.schemas import UserRegisterRequest, Token, UserLoginRequest
+from src.models.schemas import (
+    UserRegisterRequest,
+    Token,
+    UserLoginRequest,
+    UserResponse,
+)
 from src.controllers import AuthController
 from src.controllers.factory import Factory
+from src.middlewares.dependencies import authorization
+from src.models import User
 
 auth_router = APIRouter()
 
@@ -10,7 +17,7 @@ auth_router = APIRouter()
 @auth_router.post(
     "/register",
     status_code=status.HTTP_201_CREATED,
-    response_model=Token
+    response_model=Token,
 )
 async def register_user(
     user_register_request: UserRegisterRequest,
@@ -36,3 +43,12 @@ async def login_user(
         email=user_login_request.email,
         password=user_login_request.password,
     )
+
+
+@auth_router.get(
+    "/me",
+    status_code=status.HTTP_200_OK,
+    # dependencies=[Depends(authorization)],
+)
+async def get_me(user: User = Depends(authorization)) -> UserResponse:
+    return user
