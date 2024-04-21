@@ -9,7 +9,7 @@ class UserController(BaseController[User]):
         super().__init__(model=User, repository=UserRepository)
         self.repository = repository
 
-    def get_by_userId(self, userId: str) -> User | None:
+    def get_by_id(self, id: str) -> User | None:
         return self.repository.get_one({
-            "userId": userId
+            "id": id
         })

@@ -17,10 +17,11 @@ async def authorization(
     key_controller: KeyController = Depends(Factory().get_key_controller),
     user_controller: UserController = Depends(Factory().get_user_controller)
 ) -> User:
-    publicKey = key_controller.get_by_userId(userId=user_id).publicKey
-    print(publicKey)
-    tokenDecoded = JWTHandler.decode(key=publicKey, token=authorization)
+    key = key_controller.get_by_userId(userId=user_id)
+    if key is None:
+        raise UnauthorizedException(message="Invalid authorization")
+    tokenDecoded = JWTHandler.decode(key=key.publicKey, token=authorization)
     print(tokenDecoded)
     if tokenDecoded.get('user_id') != user_id:
         raise UnauthorizedException(message="Invalid authorization")
-    return user_controller.get_by_userId(userId=user_id)
+    return user_controller.get_by_id(id=user_id)

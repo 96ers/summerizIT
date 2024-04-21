@@ -52,9 +52,9 @@ class UserRegisterRequest(UserBase):
 
 
 class UserResponse(BaseModel):
-    userId: UUID4 = Field(..., example="a3b8f042-1e16-4f0a-a8f0-421e16df0a2f")
-    email: str = Field(..., example="john.doe@example.com")
+    id: UUID4 = Field(..., example="a3b8f042-1e16-4f0a-a8f0-421e16df0a2f")
     username: str = Field(..., example="john.doe")
+    email: str = Field(..., example="john.doe@example.com")
 
     class Config:
         from_attributes = True

@@ -11,5 +11,6 @@ router.include_router(v1_router, prefix="/v1")
 
 @router.get("")
 def home():
-    """Home route."""
-    return "Welcome to My API"
+    return {
+        "message": "Welcome to My API"
+    }

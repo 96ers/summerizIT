@@ -40,27 +40,27 @@ class AuthController(BaseController[User]):
         privateKey = KeyGenerator.generate_key()
 
         key_model = self.key_repository.create({
-            "userId": user.userId,
+            "userId": user.id,
             "publicKey": publicKey,
             "privateKey": privateKey,
         })
 
         if (
-            key_model.userId != user.userId
+            key_model.userId != user.id
             or key_model.publicKey != publicKey
             or key_model.privateKey != privateKey
         ):
             raise BadRequestException("Error while register user")
 
         return Token(
-            user_id=user.userId,
+            id=user.id,
             access_token=JWTHandler.encode(
                 key=publicKey,
-                payload={"user_id": user.userId, "email": user.email},
+                payload={"user_id": user.id, "email": user.email},
             ),
             refresh_token=JWTHandler.encode(
                 key=privateKey,
-                payload={"user_id": user.userId, "email": user.email},
+                payload={"user_id": user.id, "email": user.email},
             ),
         )
 
@@ -74,8 +74,8 @@ class AuthController(BaseController[User]):
         publicKey = KeyGenerator.generate_key()
         privateKey = KeyGenerator.generate_key()
 
-        key_model = self.key_repository.update_one(
-            conditions={"userId": user.userId},
+        key_model: Key = self.key_repository.update_one(
+            conditions={"userId": user.id},
             attributes={
                 "publicKey": publicKey,
                 "privateKey": privateKey,
@@ -83,20 +83,20 @@ class AuthController(BaseController[User]):
         )
 
         if (
-            key_model.userId != user.userId
+            key_model.userId != user.id
             or key_model.publicKey != publicKey
             or key_model.privateKey != privateKey
         ):
-            raise BadRequestException("Error while register user")
+            raise BadRequestException("Error while login user")
 
         return Token(
-            user_id=user.userId,
+            id=user.id,
             access_token=JWTHandler.encode(
                 key=publicKey,
-                payload={"user_id": user.userId, "email": user.email},
+                payload={"user_id": user.id, "email": user.email},
             ),
             refresh_token=JWTHandler.encode(
                 key=privateKey,
-                payload={"user_id": user.userId, "email": user.email},
+                payload={"user_id": user.id, "email": user.email},
             ),
         )
