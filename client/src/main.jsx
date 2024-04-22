@@ -1,9 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import Root from './Root'; // Import Root component
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import ReactDom from 'react-dom';
+// Sử dụng createRoot() thay vì ReactDOM.render()
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+ReactDom.render(
+    <Provider store={store}>
+        <Root />
+    </Provider>,
+    document.getElementById('root')
 )

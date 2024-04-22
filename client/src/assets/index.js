@@ -4,6 +4,8 @@ import copy from './copy.svg'
 import logo from './logo.svg'
 import tick from './tick.svg'
 import submit from './submit.svg'
+import login_img from './login_image.jpg'
+import signup_img from './signup_image.jpg'
 
 export {
     linkIcon,
@@ -11,5 +13,7 @@ export {
     copy,
     logo,
     tick, 
-    submit
+    submit,
+    login_img,
+    signup_img
 }
