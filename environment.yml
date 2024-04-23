@@ -1,0 +1,7 @@
+name: venv
+channels:
+  - defaults
+dependencies:
+  - conda-forge::poetry=1.8.2
+  - python=3.11
+  - conda-forge::nodejs=20.9

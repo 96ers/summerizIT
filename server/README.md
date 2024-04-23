@@ -6,10 +6,15 @@ cd server
 
 ## Environment Variables
 
-ssCopy the example environment file to a new file called `.env`:
+Copy the `.env.example` file to `.env` and update the values as per your needs.:
 
 ```bash
 cp .env.example .env
+```
+
+## Run MySQL and phpmyadmin containers
+```bash
+sudo docker-compose up -d
 ```
 
 ## Install Dependencies
@@ -85,5 +90,5 @@ pylint ./src
 ## Testing
 
 ```bash
-pytest ...... (TODO)
+pytest 
 ```

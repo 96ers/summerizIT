@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dev_mysql
+    ports:
+      - '${MYSQL_PORT}:${MYSQL_PORT}'
+    volumes:
+      - ./data/db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOTPASSWORD}
+    networks:
+      - awesome_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: dev_phpmyadmin
+    ports:
+      - '9090:80'
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: ${MYSQL_PORT}
+    networks:
+      - awesome_network
+  
+networks:
+  awesome_network:
+    name: awesome_network
+    driver: bridge
