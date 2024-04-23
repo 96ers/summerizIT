@@ -1,13 +1,15 @@
-import openai
+from openai import OpenAI
 import tiktoken
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import os
+from dotenv import load_dotenv
+
 import bart
 import mTet
 
 #run with uvicorn main:app --reload
-
+load_dotenv()
 class TranslationRequest(BaseModel):
     text: str
     isEnglish: bool
@@ -65,8 +67,8 @@ async def summarize(Tr: SummarizationRequest):
         )
 
     # make the chatGpt call
-    client = openai.OpenAI(
-        api_key= os.eviron.get("OPENAI_API_KEY")
+    client = OpenAI(
+        api_key= os.environ.get("OPENAI_API_KEY"),
     )
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -88,7 +90,7 @@ async def summarize(Tr: SummarizationRequest):
     return {"Summarization": completion.choices[0].message}
 
 
-@app.get("/ChatGptTransalate")
+@app.get("/ChatGptTranslate")
 async def summarize(Tr: TranslationRequest):
     """chatGpt translate api
 
@@ -115,8 +117,8 @@ async def summarize(Tr: TranslationRequest):
             status_code=400, detail="Text exceeds maximum token limit"
         )
     # make chatGpt call
-    client = openai.OpenAI(
-        api_key=os.eviron.get("OPENAI_API_KEY")
+    client = OpenAI(
+        api_key= os.environ.get("OPENAI_API_KEY")
     )
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
