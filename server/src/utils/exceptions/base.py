@@ -63,3 +63,9 @@ class AuthenticationRequiredException(CustomException):
     code = HTTPStatus.UNAUTHORIZED
     error_code = HTTPStatus.UNAUTHORIZED
     message = "Authentication required"
+
+
+class InternalServerError(CustomException):
+    code = HTTPStatus.INTERNAL_SERVER_ERROR
+    error_code = HTTPStatus.INTERNAL_SERVER_ERROR
+    message = "Internal Server Error"

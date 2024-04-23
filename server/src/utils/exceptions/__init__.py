@@ -1,14 +1,15 @@
 from .base import (
+    AuthenticationRequiredException,
     BadRequestException,
     CustomException,
     DuplicateValueException,
     ForbiddenException,
+    InternalServerError,
+    JWTDecodeError,
+    JWTExpiredError,
     NotFoundException,
     UnauthorizedException,
     UnprocessableEntity,
-    JWTDecodeError,
-    JWTExpiredError,
-    AuthenticationRequiredException
 )
 
 __all__ = [
@@ -22,4 +23,5 @@ __all__ = [
     "JWTDecodeError",
     "JWTExpiredError",
     "AuthenticationRequiredException",
+    "InternalServerError",
 ]

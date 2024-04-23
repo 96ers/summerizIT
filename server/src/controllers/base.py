@@ -4,8 +4,8 @@ from uuid import UUID
 from pydantic import BaseModel
 
 from src.database import Base
-from src.utils.exceptions import NotFoundException
 from src.repositories import BaseRepository
+from src.utils.exceptions import NotFoundException
 
 ModelType = TypeVar("ModelType", bound=Base)
 
@@ -17,9 +17,7 @@ class BaseController(Generic[ModelType]):
         self.model_class = model
         self.repository = repository
 
-    def get_by_id(
-        self, id_: int, join_: set[str] | None = None
-    ) -> ModelType:
+    def get_by_id(self, id_: int, join_: set[str] | None = None) -> ModelType:
         """
         Returns the model instance matching the id.
 

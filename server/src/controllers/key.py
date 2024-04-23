@@ -1,7 +1,7 @@
-from .base import BaseController
-
-from src.repositories import KeyRepository
 from src.models import Key
+from src.repositories import KeyRepository
+
+from .base import BaseController
 
 
 class KeyController(BaseController[Key]):

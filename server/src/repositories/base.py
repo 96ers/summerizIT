@@ -17,7 +17,7 @@ class BaseRepository(Generic[ModelType]):
         self.session = db_session
         self.model_class: Type[ModelType] = model
 
-    def create(self, attributes: dict[str, Any] = None) -> ModelType:
+    def create(self, attributes: dict[str, Any]) -> ModelType:
         """
         Creates the model instance.
 
@@ -33,9 +33,7 @@ class BaseRepository(Generic[ModelType]):
         return model
 
     def update_one(
-        self,
-        conditions: dict[str, Any],
-        attributes: dict[str, Any]
+        self, conditions: dict[str, Any], attributes: dict[str, Any]
     ) -> None:
         """
         Update the model instance that match the given condition.
@@ -52,10 +50,7 @@ class BaseRepository(Generic[ModelType]):
         self.session.refresh(model)
         return model
 
-    def get_one(
-        self,
-        conditions: dict[str, Any]
-    ):
+    def get_one(self, conditions: dict[str, Any]):
         return (
             self.session.query(self.model_class)
             .filter_by(**conditions)
@@ -179,9 +174,7 @@ class BaseRepository(Generic[ModelType]):
         :param query: The query to execute.
         """
         query = query.subquery()
-        query = self.session.scalars(
-            select(func.count()).select_from(query)
-        )
+        query = self.session.scalars(select(func.count()).select_from(query))
         return query.one()
 
     def _sort_by(

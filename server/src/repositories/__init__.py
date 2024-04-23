@@ -1,5 +1,12 @@
 from .base import BaseRepository
-from .user import UserRepository
 from .key import KeyRepository
+from .translate import TranslationRequestRepository, TranslationResultRepository
+from .user import UserRepository
 
-__all__ = ["BaseRepository", "UserRepository", "KeyRepository"]
+__all__ = [
+    "BaseRepository",
+    "UserRepository",
+    "KeyRepository",
+    "TranslationRequestRepository",
+    "TranslationResultRepository",
+]

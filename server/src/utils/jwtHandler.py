@@ -1,5 +1,6 @@
 import os
 from datetime import datetime, timedelta, timezone
+
 from jose import ExpiredSignatureError, JWTError, jwt
 
 from src.configs import config
@@ -24,9 +25,7 @@ class JWTHandler:
             minutes=JWTHandler.expire_minutes
         )
         payload.update({"exp": expire})
-        return jwt.encode(
-            payload, key=key, algorithm=JWTHandler.algorithm
-        )
+        return jwt.encode(payload, key=key, algorithm=JWTHandler.algorithm)
 
     @staticmethod
     def decode(key: str, token: str) -> dict:
