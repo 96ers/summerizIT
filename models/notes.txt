@@ -1,0 +1,34 @@
+create a method of splitting up input and then reattaching them (done)
+evaluation for translation and summarization model can be handled with human evaluators
+    +,acquire dataset (check)
+    +,use dataset to create translated dataset(check)
+    +,Group each model with their respective datasets 
+translation and summarization models must be able to handle input with both english and vietnamese in them
+    +,Use english, Vietnamese and mixed input
+evaluate idea of running the model on googlelabs and git codespaces
+Basic model testing is fully defined , now must test each model
+    +,must create automatic tests for the models
+
+git issue report
+    +,dowloaded dataset(articles,phoMT) to test and evaluate models(check)
+    +,Created funciton to turn long strings of text into segments under a specific token count(check)
+    +,Created segments datasets(english, vietnamese and mixed) for translation and a dataset for summarization(check)
+    +,Test the translation models by running them on the segment datasets(check)
+    +,Test the summarization models   
+        *,with the articles dataset, summarize each entry and record(length of og text, length of resulting text, time, resulting text)(skip)  
+    +,The bart models tokens are roughly equal to 1.18 nltk tokens,(so 850 nltk tokens ~= 1024 bart tokens, why? I have no idea and im not really interested in finding out, seems like a waste of time)
+    +,titoken gives more accurate token count but it fails with vietnameses input
+    +,cấu trúc api hiện tại
+    +,input limit và cách đối phó
+        *,Vẽ uml và viết scenarios
+
+Create an api for the models
+    +,tạo code để check input rồi gửi lỗi nếu có vấn đề 
+        *,phải tìm cách để sử lý mixed input với summarize api(check trong text có chưa tiếng anh, tiếng việt hay cả hai)(check)
+            - dịch input thành tiếng anh với mtet rồi dùng bart để summarize, (có thể có lựa chọn dịch chất lượng cao với chatGPT)(check)
+        *, vietApi và chatGpt có thể dùng cho translate api(check)(chatGpt is still on the fence)
+            - sửa cái output có chữ en: hoặc vi: ở đằng trước(check)
+    +,phải thay từ dùng word tokenizer của nltk thành dùng tokenizer của tiktoken(api dịch dùng nltk api tóm tắt dùng tiktoken)(có thể thay đổi)
+    +,tạo method để mà text lớn hơn 1000 token có thể summarize được(sliding window chunking)(check but will need fiddling)
+        *,create a way to adjust length of output(check but may need to change)
+    +,tạo api để trả về token của text(check)
