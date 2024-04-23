@@ -2,7 +2,7 @@ import openai
 import tiktoken
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-
+import os
 import bart
 import mTet
 
@@ -66,7 +66,7 @@ async def summarize(Tr: SummarizationRequest):
 
     # make the chatGpt call
     client = openai.OpenAI(
-        api_key="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"
+        api_key= os.eviron.get("OPENAI_API_KEY")
     )
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -116,7 +116,7 @@ async def summarize(Tr: TranslationRequest):
         )
     # make chatGpt call
     client = openai.OpenAI(
-        api_key="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"
+        api_key=os.eviron.get("OPENAI_API_KEY")
     )
     completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
