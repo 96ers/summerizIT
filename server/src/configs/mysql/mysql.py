@@ -11,6 +11,4 @@ class MySQLConfig(BaseSettings):
     DRIVER: str = "mysqlconnector"
     DEBUG: bool = True
 
-    URI: str = (
-        f"mysql+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
-    )
+    URI: str = f"mysql+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"

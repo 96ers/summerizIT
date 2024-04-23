@@ -3,20 +3,20 @@ This module is the entry point of the FastAPI application.
 It creates the FastAPI server and initializes the routers.
 """
 
+import logging
+from typing import List
+
 from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
 from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from src.configs import config
-from src.routes import router
-from src.models import Base
 from src.database import engine
-from src.utils.exceptions import CustomException
 from src.middlewares import LoggingMiddleware
-
-from typing import List
-import logging
+from src.models import Base
+from src.routes import router
+from src.utils.exceptions import CustomException
 
 
 def init_logger() -> logging.Logger:
@@ -65,10 +65,7 @@ def make_middleware() -> List[Middleware]:
             allow_methods=["*"],
             allow_headers=["*"],
         ),
-        Middleware(
-            LoggingMiddleware,
-            logger=init_logger()
-        )
+        Middleware(LoggingMiddleware, logger=init_logger()),
     ]
     return middleware
 
@@ -82,7 +79,7 @@ def create_server() -> FastAPI:
         version="1.0.0",
         docs_url=None if not config.server.DEBUG else "/docs",
         redoc_url=None if not config.server.DEBUG else "/redoc",
-        middleware=make_middleware()
+        middleware=make_middleware(),
     )
     init_routers(server_)
     init_listeners(server_)

@@ -2,10 +2,7 @@ from passlib.context import CryptContext
 
 
 class PasswordHandler:
-    context = CryptContext(
-        schemes=["bcrypt"],
-        deprecated="auto"
-    )
+    context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
     @staticmethod
     def hash(password: str):

@@ -1,10 +1,6 @@
-from .user import (
-    UserLoginRequest,
-    UserRegisterRequest,
-    UserResponse,
-    CurrentUser,
-)
 from .token import Token
+from .translate import TranslateInput, TranslateOutput
+from .user import CurrentUser, UserLoginRequest, UserRegisterRequest, UserResponse
 
 __all__ = [
     "UserLoginRequest",
@@ -12,4 +8,6 @@ __all__ = [
     "UserResponse",
     "Token",
     "CurrentUser",
+    "TranslateInput",
+    "TranslateOutput",
 ]

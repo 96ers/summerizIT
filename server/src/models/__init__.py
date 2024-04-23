@@ -1,9 +1,9 @@
-from .user import User
-from .key import Key
-from .request import TranslationRequest, SummaryRequest
-from .result import TranslationResult, SummaryResult
-
 from src.database.session import Base
+
+from .key import Key
+from .request import SummaryRequest, TranslationRequest
+from .result import SummaryResult, TranslationResult
+from .user import User
 
 __all__ = [
     "Base",

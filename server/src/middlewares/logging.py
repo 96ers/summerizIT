@@ -1,28 +1,21 @@
-import time
-import logging
 import json
-from starlette.middleware.base import BaseHTTPMiddleware
-from fastapi import Request, Response
+import logging
+import time
 from typing import Callable
 from uuid import uuid4
+
+from fastapi import FastAPI, Request, Response
 from starlette.concurrency import iterate_in_threadpool
-from fastapi import FastAPI
+from starlette.middleware.base import BaseHTTPMiddleware
 
 
 class LoggingMiddleware(BaseHTTPMiddleware):
-    def __init__(
-        self,
-        app: FastAPI,
-        *,
-        logger: logging.Logger
-    ) -> None:
+    def __init__(self, app: FastAPI, *, logger: logging.Logger) -> None:
         self._logger = logger
         super().__init__(app)
 
     async def dispatch(
-        self,
-        request: Request,
-        call_next: Callable
+        self, request: Request, call_next: Callable
     ) -> Response:
         # Set request id
         request_id: str = str(uuid4())
@@ -38,7 +31,7 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
 
         # Response body
-        if request.method != 'GET':
+        if request.method != "GET":
             response_body = [chunk async for chunk in response.body_iterator]
             response.body_iterator = iterate_in_threadpool(iter(response_body))
             response_body = response_body[0].decode()

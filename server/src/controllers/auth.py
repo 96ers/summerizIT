@@ -1,12 +1,12 @@
 from pydantic import EmailStr
 
-from .base import BaseController
-
-from src.models import User, Key
+from src.models import Key, User
 from src.models.schemas import Token
-from src.repositories import UserRepository, KeyRepository
+from src.repositories import KeyRepository, UserRepository
+from src.utils import JWTHandler, KeyGenerator, PasswordHandler
 from src.utils.exceptions import BadRequestException
-from src.utils import PasswordHandler, KeyGenerator, JWTHandler
+
+from .base import BaseController
 
 
 class AuthController(BaseController[User]):
@@ -14,8 +14,7 @@ class AuthController(BaseController[User]):
         super().__init__(model=User, repository=UserRepository)
         self.repository = repository
         self.key_repository: KeyRepository = KeyRepository(
-            model=Key,
-            db_session=self.repository.session
+            model=Key, db_session=self.repository.session
         )
 
     def register(self, email: EmailStr, password: str, username: str) -> Token:
@@ -30,20 +29,20 @@ class AuthController(BaseController[User]):
         # Hash password
         password = PasswordHandler.hash(password=password)
 
-        user = self.repository.create({
-            "email": email,
-            "password": password,
-            "username": username
-        })
+        user = self.repository.create(
+            {"email": email, "password": password, "username": username}
+        )
 
         publicKey = KeyGenerator.generate_key()
         privateKey = KeyGenerator.generate_key()
 
-        key_model = self.key_repository.create({
-            "userId": user.id,
-            "publicKey": publicKey,
-            "privateKey": privateKey,
-        })
+        key_model = self.key_repository.create(
+            {
+                "userId": user.id,
+                "publicKey": publicKey,
+                "privateKey": privateKey,
+            }
+        )
 
         if (
             key_model.userId != user.id
