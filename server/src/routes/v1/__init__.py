@@ -44,6 +44,6 @@ v1_router.include_router(
 )
 
 
-@v1_router.get("")
+@v1_router.get("", tags=["Welcome"])
 def home_v1():
     return {"message": "Welcome to My API v1."}
