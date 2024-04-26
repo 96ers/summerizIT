@@ -1,6 +1,9 @@
 from fastapi import APIRouter, Depends, status
 
-from src.controllers import TranslateRequestController, TranslationResultController
+from src.controllers import (
+    TranslateRequestController,
+    TranslationResultController,
+)
 from src.controllers.factory import Factory
 from src.middlewares.dependencies import authorization
 from src.models import TranslationRequest, TranslationResult, User
@@ -35,7 +38,7 @@ async def translate(
         )
     except Exception as e:
         raise InternalServerError from e
-    print(tran_req)
+
     # Call service translate here
     translated_text = tran_req.text
     # Create new instance translation result

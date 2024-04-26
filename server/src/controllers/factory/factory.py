@@ -8,14 +8,25 @@ from src.controllers import (
     TranslateRequestController,
     TranslationResultController,
     UserController,
+    SummaryRequestController,
+    SummaryResultController
 )
 from src.database import get_session
-from src.models import Key, TranslationRequest, TranslationResult, User
+from src.models import (
+    Key,
+    TranslationRequest,
+    TranslationResult,
+    User,
+    SummaryRequest,
+    SummaryResult,
+)
 from src.repositories import (
     KeyRepository,
+    UserRepository,
     TranslationRequestRepository,
     TranslationResultRepository,
-    UserRepository,
+    SummaryRequestRepository,
+    SummaryResultRepository
 )
 
 
@@ -28,6 +39,13 @@ class Factory:
     )
     translate_res_repository = partial(
         TranslationResultRepository, TranslationResult
+    )
+
+    summary_req_repository = partial(
+        SummaryRequestRepository, SummaryRequest
+    )
+    summary_res_repository = partial(
+        SummaryResultRepository, SummaryResult
     )
 
     def get_user_controller(self, db_session=Depends(get_session)):
@@ -53,4 +71,14 @@ class Factory:
     def get_tran_res_controller(self, db_session=Depends(get_session)):
         return TranslationResultController(
             repository=self.translate_res_repository(db_session=db_session)
+        )
+
+    def get_sum_req_controller(self, db_session=Depends(get_session)):
+        return SummaryRequestController(
+            repository=self.summary_req_repository(db_session=db_session)
+        )
+
+    def get_sum_res_controller(self, db_session=Depends(get_session)):
+        return SummaryResultController(
+            repository=self.summary_res_repository(db_session=db_session)
         )

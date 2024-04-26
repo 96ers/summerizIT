@@ -56,10 +56,12 @@ class AuthController(BaseController[User]):
             access_token=JWTHandler.encode(
                 key=publicKey,
                 payload={"user_id": user.id, "email": user.email},
+                token_type='access'
             ),
             refresh_token=JWTHandler.encode(
                 key=privateKey,
                 payload={"user_id": user.id, "email": user.email},
+                token_type='refresh'
             ),
         )
 
@@ -93,9 +95,11 @@ class AuthController(BaseController[User]):
             access_token=JWTHandler.encode(
                 key=publicKey,
                 payload={"user_id": user.id, "email": user.email},
+                token_type='access'
             ),
             refresh_token=JWTHandler.encode(
                 key=privateKey,
                 payload={"user_id": user.id, "email": user.email},
+                token_type='refresh'
             ),
         )
