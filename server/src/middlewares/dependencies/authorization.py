@@ -21,7 +21,7 @@ async def authorization(
     if key is None:
         raise UnauthorizedException(message="Invalid authorization")
     tokenDecoded = JWTHandler.decode(key=key.publicKey, token=authorization)
-    print(tokenDecoded)
+    # print(tokenDecoded)
     if tokenDecoded.get("user_id") != user_id:
         raise UnauthorizedException(message="Invalid authorization")
     user = user_controller.get_by_id(id=user_id)

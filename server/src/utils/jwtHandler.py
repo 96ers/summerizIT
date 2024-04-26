@@ -17,12 +17,19 @@ class KeyGenerator:
 
 class JWTHandler:
     algorithm = config.jwt.ALGORITHM
-    expire_minutes = config.jwt.EXPIREMINUTES
+    expire_minutes = {
+        "access": config.jwt.EXPIREMINUTESACCESS,
+        "refresh": config.jwt.EXPIREMINUTESREFRESH,
+    }
 
     @staticmethod
-    def encode(key: str, payload: dict) -> str:
+    def encode(key: str, payload: dict, token_type: str = 'access') -> str:
+        if token_type not in JWTHandler.expire_minutes:
+            raise ValueError(
+                "Invalid token type. Expected 'access' or 'refresh'."
+            )
         expire = datetime.now(timezone.utc) + timedelta(
-            minutes=JWTHandler.expire_minutes
+            minutes=JWTHandler.expire_minutes[token_type]
         )
         payload.update({"exp": expire})
         return jwt.encode(payload, key=key, algorithm=JWTHandler.algorithm)
