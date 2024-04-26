@@ -58,7 +58,7 @@ class BaseRepository(Generic[ModelType]):
         )
 
     def get_all(
-        self, skip: int = 0, limit: int = 100, join_: set[str] | None = None
+        self, conditions: dict[str, Any], skip: int = 0, limit: int = 100
     ) -> list[ModelType]:
         """
         Returns a list of model instances.
@@ -68,13 +68,7 @@ class BaseRepository(Generic[ModelType]):
         :param join_: The joins to make.
         :return: A list of model instances.
         """
-        query = self._query(join_)
-        query = query.offset(skip).limit(limit)
-
-        if join_ is not None:
-            return self.all_unique(query)
-
-        return self._all(query)
+        return self.session.query(self.model_class).filter_by(**conditions).all()
 
     def get_by(
         self,
