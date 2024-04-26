@@ -1,8 +1,5 @@
 from src.models import TranslationRequest, TranslationResult
-from src.repositories import (
-    TranslationRequestRepository,
-    TranslationResultRepository,
-)
+from src.repositories import TranslationRequestRepository, TranslationResultRepository
 
 from .base import BaseController
 

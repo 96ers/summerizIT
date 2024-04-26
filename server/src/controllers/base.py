@@ -62,8 +62,13 @@ class BaseController(Generic[ModelType]):
             )
         return db_obj
 
+    def get_one(
+        self, conditions: dict[str | Any]
+    ) -> ModelType | None:
+        return self.repository.get_one(conditions)
+
     def get_all(
-        self, skip: int = 0, limit: int = 100, join_: set[str] | None = None
+        self, conditions: dict[str | Any], skip: int = 0, limit: int = 100
     ) -> list[ModelType]:
         """
         Returns a list of records based on pagination params.
@@ -73,9 +78,7 @@ class BaseController(Generic[ModelType]):
         :param join_: The joins to make.
         :return: A list of records.
         """
-
-        response = self.repository.get_all(skip, limit, join_)
-        return response
+        return self.repository.get_all(conditions, skip, limit)
 
     def create(self, attributes: dict[str, Any]) -> ModelType:
         """

@@ -1,8 +1,5 @@
 from src.models import SummaryRequest, SummaryResult
-from src.repositories import (
-    SummaryRequestRepository,
-    SummaryResultRepository,
-)
+from src.repositories import SummaryRequestRepository, SummaryResultRepository
 
 from .base import BaseController
 

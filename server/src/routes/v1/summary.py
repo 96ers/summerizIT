@@ -1,9 +1,6 @@
 from fastapi import APIRouter, Depends, status
 
-from src.controllers import (
-    SummaryRequestController,
-    SummaryResultController,
-)
+from src.controllers import SummaryRequestController, SummaryResultController
 from src.controllers.factory import Factory
 from src.middlewares.dependencies import authorization
 from src.models import SummaryRequest, SummaryResult, User

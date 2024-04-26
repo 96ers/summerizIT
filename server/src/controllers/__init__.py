@@ -1,9 +1,9 @@
 from .auth import AuthController
 from .base import BaseController
 from .key import KeyController
+from .summary import SummaryRequestController, SummaryResultController
 from .translate import TranslateRequestController, TranslationResultController
 from .user import UserController
-from .summary import SummaryRequestController, SummaryResultController
 
 __all__ = [
     "BaseController",

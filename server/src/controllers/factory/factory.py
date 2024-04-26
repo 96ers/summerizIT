@@ -5,28 +5,28 @@ from fastapi import Depends
 from src.controllers import (
     AuthController,
     KeyController,
+    SummaryRequestController,
+    SummaryResultController,
     TranslateRequestController,
     TranslationResultController,
     UserController,
-    SummaryRequestController,
-    SummaryResultController
 )
 from src.database import get_session
 from src.models import (
     Key,
+    SummaryRequest,
+    SummaryResult,
     TranslationRequest,
     TranslationResult,
     User,
-    SummaryRequest,
-    SummaryResult,
 )
 from src.repositories import (
     KeyRepository,
-    UserRepository,
+    SummaryRequestRepository,
+    SummaryResultRepository,
     TranslationRequestRepository,
     TranslationResultRepository,
-    SummaryRequestRepository,
-    SummaryResultRepository
+    UserRepository,
 )
 
 
