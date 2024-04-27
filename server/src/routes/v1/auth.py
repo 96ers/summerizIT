@@ -2,7 +2,12 @@ from fastapi import APIRouter, Depends, status
 
 from src.controllers import AuthController
 from src.controllers.factory import Factory
-from src.models.schemas import Token, UserLoginRequest, UserRegisterRequest
+from src.models.schemas import (
+    Token,
+    UserLoginRequest,
+    UserRegisterRequest,
+    RefreshToken,
+)
 
 auth_router = APIRouter()
 
@@ -24,7 +29,9 @@ async def register_user(
 
 
 @auth_router.post(
-    "/login", status_code=status.HTTP_200_OK, response_model=Token
+    "/login",
+    status_code=status.HTTP_200_OK,
+    response_model=Token
 )
 async def login_user(
     user_login_request: UserLoginRequest,
@@ -33,4 +40,19 @@ async def login_user(
     return auth_controller.login(
         email=user_login_request.email,
         password=user_login_request.password,
+    )
+
+
+@auth_router.post(
+    "/refresh",
+    status_code=status.HTTP_200_OK,
+    response_model=Token
+)
+async def refresh_token(
+    refresh_token: RefreshToken,
+    auth_controller: AuthController = Depends(Factory().get_auth_controller)
+) -> Token:
+    return auth_controller.refresh(
+        refresh_token.id,
+        refresh_token.refresh_token
     )

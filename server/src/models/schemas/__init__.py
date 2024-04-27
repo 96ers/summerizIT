@@ -1,7 +1,12 @@
 from .summary import SummaryInput, SummaryOutput, SummaryHistory
-from .token import Token
+from .token import Token, RefreshToken
 from .translate import TranslateHistory, TranslateInput, TranslateOutput
-from .user import CurrentUser, UserLoginRequest, UserRegisterRequest, UserResponse
+from .user import (
+    CurrentUser,
+    UserLoginRequest,
+    UserRegisterRequest,
+    UserResponse,
+)
 
 __all__ = [
     "UserLoginRequest",
@@ -15,4 +20,5 @@ __all__ = [
     "SummaryOutput",
     "TranslateHistory",
     "SummaryHistory",
+    "RefreshToken",
 ]
