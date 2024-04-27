@@ -103,6 +103,8 @@ class BaseRepository(Generic[ModelType]):
         :return: None
         """
         self.session.delete(model)
+        self.session.commit()
+        # self.session.refresh(model)
 
     def _query(
         self,

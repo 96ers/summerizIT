@@ -83,6 +83,15 @@ class AuthController(BaseController[User]):
             },
         )
 
+        if key_model is None:
+            key_model = self.key_repository.create(
+                {
+                    "userId": user.id,
+                    "publicKey": publicKey,
+                    "privateKey": privateKey,
+                }
+            )
+
         if (
             key_model.userId != user.id
             or key_model.publicKey != publicKey
@@ -152,3 +161,7 @@ class AuthController(BaseController[User]):
                 token_type="refresh",
             ),
         )
+
+    def logout(self, user: User):
+        key = self.key_repository.get_one({"userId": user.id})
+        return self.key_repository.delete(key)
