@@ -1,4 +1,4 @@
-from .summary import SummaryInput, SummaryOutput
+from .summary import SummaryInput, SummaryOutput, SummaryHistory
 from .token import Token
 from .translate import TranslateHistory, TranslateInput, TranslateOutput
 from .user import CurrentUser, UserLoginRequest, UserRegisterRequest, UserResponse
@@ -14,4 +14,5 @@ __all__ = [
     "SummaryInput",
     "SummaryOutput",
     "TranslateHistory",
+    "SummaryHistory",
 ]

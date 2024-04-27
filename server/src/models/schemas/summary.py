@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 
 class SummaryInput(BaseModel):
@@ -7,3 +8,10 @@ class SummaryInput(BaseModel):
 
 class SummaryOutput(BaseModel):
     summarized_text: str
+
+
+class SummaryHistory(BaseModel):
+    id: str
+    source_text: str
+    summarized_text: str
+    time: datetime

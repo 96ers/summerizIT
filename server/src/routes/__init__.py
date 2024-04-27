@@ -9,6 +9,6 @@ router = APIRouter()
 router.include_router(v1_router, prefix="/v1")
 
 
-@router.get("")
+@router.get("", tags=["Welcome"])
 def home():
     return {"message": "Welcome to My API"}
