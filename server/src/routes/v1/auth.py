@@ -8,6 +8,8 @@ from src.models.schemas import (
     UserRegisterRequest,
     RefreshToken,
 )
+from src.models import User
+from src.middlewares.dependencies import authorization
 
 auth_router = APIRouter()
 
@@ -56,3 +58,18 @@ async def refresh_token(
         refresh_token.id,
         refresh_token.refresh_token
     )
+
+
+@auth_router.post(
+    "/logout",
+    status_code=status.HTTP_200_OK,
+    dependencies=[Depends(authorization)],
+)
+async def logout(
+    user: User = Depends(authorization),
+    auth_controller: AuthController = Depends(Factory().get_auth_controller),
+):
+    auth_controller.logout(user)
+    return {
+        "message": "Logout Success"
+    }
