@@ -47,7 +47,7 @@ async def summarize(Tr: SummarizationRequest):
     """chatGpt summarize api
 
     Args:
-        Tr (SummarizationRequest): {"text": str, "length": int}
+        Tr (SummarizationRequest): {"text": str, "length": int} (length is in tokens)
 
     Raises:
         HTTPException: status_code = 400 if tokens exceed limit
@@ -144,7 +144,7 @@ async def summarize(Tr: TranslationRequest):
 async def summarize(Sr: SummarizationRequest):
     """bart model summarize api
     Args:
-        Tr (SummarizationRequest): {"text": str, "length": int}
+        Tr (SummarizationRequest): {"text": str, "length": int} (length is in tokens)
 
     Raises:
         HTTPException: status_code = 400 if tokens exceed limit
