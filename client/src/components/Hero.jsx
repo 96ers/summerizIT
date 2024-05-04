@@ -1,4 +1,5 @@
 import { logo } from "../assets";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -6,13 +7,7 @@ const Hero = () => {
       <nav style={{ backgroundColor: 'transparent' }} className="flex justify-between items-center w-full mb-10 pt-3">
         <img src={logo} alt="sumz_logo" className="w-28 object-contain" />
         {/* Add the button: Sign in */}
-        <button
-          type="button"
-          href="#"
-          className="black_btn"
-        >
-          Login
-        </button>
+        <Link to="/login" className="black_btn">Login</Link>
       </nav>
 
       <h1 className="head_text">
