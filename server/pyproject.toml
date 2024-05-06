@@ -12,7 +12,7 @@ uvicorn = "^0.29.0"
 fastapi = "^0.110.0"
 python-dotenv = "^1.0.1"
 pydantic-settings = "^2.2.1"
-sqlalchemy = "^2.0.29"
+sqlalchemy = "^2.0.30"
 mysql-connector-python = "^8.3.0"
 pydantic = {extras = ["email"], version = "^2.6.4"}
 passlib = "^1.7.4"
