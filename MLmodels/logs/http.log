@@ -1,0 +1,10 @@
+2024-05-07 08:03:44,298 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET / 1.1 404  0.00s
+2024-05-07 08:03:48,382 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET /docs 1.1 200  0.00s
+2024-05-07 08:03:48,841 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET /openapi.json 1.1 200  0.01s
+2024-05-07 08:04:08,053 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET /docs 1.1 200  0.00s
+2024-05-07 08:04:08,178 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET /openapi.json 1.1 200  0.00s
+2024-05-07 08:04:31,932 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET /docs 1.1 200  0.00s
+2024-05-07 08:04:32,091 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET /openapi.json 1.1 200  0.00s
+2024-05-07 08:05:58,720 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET / 1.1 404  0.00s
+2024-05-07 08:06:06,760 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET /docs 1.1 200  0.00s
+2024-05-07 08:06:07,217 - /home/admin/Workspace/summerizIT/MLmodels/middlewares/http.py - INFO - 127.0.0.1 - GET /openapi.json 1.1 200  0.00s

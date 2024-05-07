@@ -1,28 +1,15 @@
-from openai import OpenAI
+# from openai import OpenAI
 import tiktoken
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
 
 import bart
 import mTet
+from schemas import TranslationRequest, SummarizationRequest, TokenRequest
 
-#run with uvicorn main:app --reload
+# run with uvicorn main:app --reload
 load_dotenv()
-class TranslationRequest(BaseModel):
-    text: str
-    isEnglish: bool
-
-
-class SummarizationRequest(BaseModel):
-    text: str
-    length: int
-
-
-class TokenRequest(BaseModel):
-    text: str
-
 
 app = FastAPI()
 

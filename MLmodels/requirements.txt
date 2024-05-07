@@ -1,0 +1,6 @@
+fastapi==0.110.2
+uvicorn==0.29.0
+transformers==4.40.2
+tiktoken==0.6.0
+langchain==0.1.17
+nltk==3.8.1

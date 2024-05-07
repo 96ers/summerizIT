@@ -17,24 +17,9 @@ def translate(text, isEnglish):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
-    # check if cuda is available with code:
-    # if torch.cuda.is_available():
-    # Get the number of available GPUs
-    # num_gpus = torch.cuda.device_count()
-    # print(f"Number of GPUs available: {num_gpus}")
-    # Get the name of each GPU
-    # for i in range(num_gpus):
-    # print(f"GPU {i}: {torch.cuda.get_device_name(i)}")
-    # else:
-    # print("CUDA is not available. Only CPU will be used.")
-
-    # remove the line below if cuda not available and change input_ids.to('cuda') to just input_ids
-    # model.cuda()
-    # select language
-
     Language = "en: " if isEnglish else "vi: "
 
-    # splits the text into  segments to translate
+    # splits the text into segments to translate
     sentences = nltk.sent_tokenize(text)
     segments = []
     segment_token_count = 0
@@ -57,7 +42,7 @@ def translate(text, isEnglish):
         outputs = model.generate(
             tokenizer(
                 Language + segment, return_tensors="pt", padding=True
-            ).input_ids.to("cuda"),
+            ).input_ids,
             max_length=512,
         )
         translated_segments.append(
