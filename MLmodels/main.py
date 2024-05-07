@@ -2,6 +2,7 @@ from openai import OpenAI
 import tiktoken
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import uvicorn
 import os
 from dotenv import load_dotenv
 
@@ -12,7 +13,7 @@ import mTet
 load_dotenv()
 class TranslationRequest(BaseModel):
     text: str
-    isEnglish: bool
+    EngToViet: bool
 
 
 class SummarizationRequest(BaseModel):
@@ -38,7 +39,7 @@ async def translate(Tr: TranslationRequest):
         json response: {"translation" : str}
     """
     # call the mTet translate method
-    translation = mTet.translate(Tr.text, Tr.isEnglish)
+    translation = mTet.translate(Tr.text, Tr.EngToViet)
     return {"translation": translation}
 
 
@@ -109,7 +110,7 @@ async def summarize(Tr: TranslationRequest):
     text_length = len(tokens)
 
     Language = (
-        "english to vietnamese" if Tr.isEnglish else "vietnamese to english"
+        "english to vietnamese" if Tr.EngToViet else "vietnamese to english"
     )
     # check limit
     if text_length > 16000:
@@ -192,3 +193,6 @@ async def summarize(Tr: TokenRequest):
         ],
         "length": len(tokens),
     }
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8001)
