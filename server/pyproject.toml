@@ -20,6 +20,12 @@ python-jose = "^3.3.0"
 transformers = "^4.40.1"
 tiktoken = "^0.6.0"
 langchain = "^0.1.16"
+openai = "^1.26.0"
+torch = [
+    { version = "^2.3.0", markers="sys_platform == 'win32'", source = "torch_cuda121" },
+    { version = "^2.3.0", markers="sys_platform != 'win32'", source = "pypi" },
+]
+nltk = "^3.8.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -27,6 +33,11 @@ pylint = "^3.1.0"
 black = "^24.3.0"
 isort = "^5.13.2"
 transformers = "^4.40.1"
+
+[[tool.poetry.source]]
+name = "torch_cuda121"
+url = "https://download.pytorch.org/whl/cu121"
+priority = "explicit"
 
 [build-system]
 requires = ["poetry-core"]
