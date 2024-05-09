@@ -16,6 +16,7 @@ from src.database import engine
 from src.middlewares import LoggingMiddleware
 from src.models import Base
 from src.routes import router
+from src.routes.admin import admin_page
 from src.utils.exceptions import CustomException
 
 
@@ -81,6 +82,7 @@ def create_server() -> FastAPI:
         redoc_url=None if not config.server.DEBUG else "/redoc",
         middleware=make_middleware(),
     )
+    admin_page(server_)
     init_routers(server_)
     init_listeners(server_)
     return server_
