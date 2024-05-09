@@ -20,6 +20,8 @@ python-jose = "^3.3.0"
 transformers = "^4.40.1"
 tiktoken = "^0.6.0"
 langchain = "^0.1.16"
+starlette-admin = "^0.13.2"
+itsdangerous = "^2.2.0"
 openai = "^1.26.0"
 torch = [
     { version = "^2.3.0", markers="sys_platform == 'win32'", source = "torch_cuda121" },
