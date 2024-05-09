@@ -8,8 +8,9 @@ from dotenv import load_dotenv
 
 import bart
 import mTet
+import vinAi
 
-#run with uvicorn main:app --reload
+#run with bash : python main.py
 load_dotenv()
 class TranslationRequest(BaseModel):
     text: str
@@ -40,6 +41,21 @@ async def translate(Tr: TranslationRequest):
     """
     # call the mTet translate method
     translation = mTet.translate(Tr.text, Tr.EngToViet)
+    return {"translation": translation}
+
+
+@app.get("/vinAiTranslate")
+async def translate(Tr: TranslationRequest):
+    """_summary_
+
+    Args:
+        Tr (TranslationRequest): translation request
+
+    Returns:
+       json response: {"translation" : str}
+    """
+    # call the mTet translate method
+    translation = vinAi.translate(Tr.text, Tr.EngToViet)
     return {"translation": translation}
 
 

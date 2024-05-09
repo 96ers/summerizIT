@@ -23,8 +23,4 @@ def translate_vi2en(vi_texts: str) -> str:
     en_texts = tokenizer_vi2en.batch_decode(output_ids, skip_special_tokens=True)
     return en_texts
 
-# The input may consist of multiple text sequences, with the number of text sequences in the input ranging from 1 up to 8, 16, 32, or even higher, depending on the GPU memory.
-vi_texts = ["Cô cho biết: trước giờ tôi không đến phòng tập công cộng, mà tập cùng giáo viên Yoga riêng hoặc tự tập ở nhà.",
-            "Khi tập thể dục trong không gian riêng tư, tôi thoải mái dễ chịu hơn.",
-            "cô cho biết trước giờ tôi không đến phòng tập công cộng mà tập cùng giáo viên yoga riêng hoặc tự tập ở nhà khi tập thể dục trong không gian riêng tư tôi thoải mái dễ chịu hơn"]
-print(translate_vi2en(vi_texts))
+

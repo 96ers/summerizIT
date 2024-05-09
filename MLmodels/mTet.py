@@ -3,12 +3,12 @@ import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 
-def translate(text, isEnglish):
+def translate(text, EngToViet):
     """_summary_
 
     Args:
         text (str): text input
-        isEnglish (bool): boolean value
+        EngToViet (bool): boolean value
 
     Returns:
         str : translation
@@ -19,7 +19,7 @@ def translate(text, isEnglish):
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     
     # select language
-    Language = "en: " if isEnglish else "vi: "
+    Language = "en: " if EngToViet else "vi: "
 
     # splits the text into  segments to translate
     sentences = nltk.sent_tokenize(text)
