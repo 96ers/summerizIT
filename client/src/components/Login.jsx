@@ -1,26 +1,35 @@
 // Login.jsx
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { login_img } from "../assets";
-import { loginUser } from "../redux/apiRequest";
+import { Link, useNavigate } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/apiRequest";
 
 import { logo } from "../assets";
+import { login_img } from "../assets";
 
 const Login = () => {
+  // user information
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
-  const history = useHistory();
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const newuser = {
+
+    // handle login here
+    const newUser = {
       email: email,
       password: password,
     };
-    loginUser(newuser, dispatch, history);
+
+    // 
+    loginUser(newUser, dispatch, navigate)
+    // if error occurs, set error message
+      .catch((err) => setError(err));
   };
 
   return (
@@ -52,6 +61,7 @@ const Login = () => {
                 name="email"
                 id="email"
                 value={email}
+                required
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -61,12 +71,13 @@ const Login = () => {
                 type="password"
                 name="pass"
                 id="pass"
+                required
                 className="w-full p-2 border border-gray-300 rounded-md placeholder-font-light placeholder-text-gray-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-
+            {error && <div className="text-red-500">{error}</div>}
             <div className="flex justify-between w-full py-4">
               <div className="mr-24">
                 <input type="checkbox" name="ch" id="ch" className="mr-2" />
