@@ -97,14 +97,14 @@ async def summarize(Tr: SummarizationRequest):
             {
                 "role": "user",
                 "content": "Please summarize the following text.The summarize text should shoud be "
-                + Tr.length
+                + str(Tr.length)
                 + " tokens : "
-                + Tr.text,
+                + str(Tr.text)
             },
         ],
     )
 
-    return {"Summarization": completion.choices[0].message}
+    return {"Summarization": completion.choices[0].message.content}
 
 
 @app.get("/ChatGptTranslate")
@@ -209,6 +209,3 @@ async def summarize(Tr: TokenRequest):
         ],
         "length": len(tokens),
     }
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8001)

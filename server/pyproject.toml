@@ -17,19 +17,8 @@ mysql-connector-python = "^8.3.0"
 pydantic = {extras = ["email"], version = "^2.6.4"}
 passlib = "^1.7.4"
 python-jose = "^3.3.0"
-transformers = "^4.40.1"
-tiktoken = "^0.6.0"
-langchain = "^0.1.16"
 starlette-admin = "^0.13.2"
 itsdangerous = "^2.2.0"
-openai = "^1.26.0"
-torch = [
-    { version = "^2.3.0", markers="sys_platform == 'win32'", source = "torch_cuda121" },
-    { version = "^2.3.0", markers="sys_platform != 'win32'", source = "pypi" },
-]
-nltk = "^3.8.1"
-sentencepiece = "^0.2.0"
-protobuf = "^5.26.1"
 
 
 [tool.poetry.group.dev.dependencies]
