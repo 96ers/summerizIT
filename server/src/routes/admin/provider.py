@@ -15,17 +15,18 @@ class MyAuthProvider(AuthProvider):
         password: str,
         remember_me: bool,
         request: Request,
-        response: Response
+        response: Response,
     ) -> Response:
         if len(username) < 5:
             raise FormValidationError(
                 {"username": "Ensure username has at least 05 characters"}
             )
         session: Session = request.state.session
-        user = session.query(User).filter(
-            User.username == username,
-            User.password == password
-        ).first()
+        user = (
+            session.query(User)
+            .filter(User.username == username, User.password == password)
+            .first()
+        )
         if not user:
             raise LoginFailed("User doesn't exist!!!")
 
@@ -41,9 +42,9 @@ class MyAuthProvider(AuthProvider):
             return False
 
         with Session(engine) as session:
-            user = session.query(User).filter(
-                User.username == username
-            ).first()
+            user = (
+                session.query(User).filter(User.username == username).first()
+            )
         if user is None:
             return False
 
@@ -54,9 +55,7 @@ class MyAuthProvider(AuthProvider):
         user = request.state.user
         # Update app title according to current_user
         custom_app_title = "Hello " + user.username + "!"
-        return AdminConfig(
-            app_title=custom_app_title
-        )
+        return AdminConfig(app_title=custom_app_title)
 
     def get_admin_user(self, request: Request) -> AdminUser | None:
         user = request.state.user

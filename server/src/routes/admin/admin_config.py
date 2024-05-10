@@ -6,8 +6,7 @@ from src.models import User, UserRole
 
 def create_admin_user():
     with Session(engine) as session:
-        admin = session.query(User).filter(
-            User.role == UserRole.ADMIN).first()
+        admin = session.query(User).filter(User.role == UserRole.ADMIN).first()
     if admin:
         return
 
@@ -19,10 +18,12 @@ def create_admin_user():
     print("Password: ")
     admin_password = input()
     with Session(engine) as session:
-        session.add(User(
-            username=admin_user,
-            password=admin_password,
-            email=admin_email,
-            role=UserRole.ADMIN
-        ))
+        session.add(
+            User(
+                username=admin_user,
+                password=admin_password,
+                email=admin_email,
+                role=UserRole.ADMIN,
+            )
+        )
         session.commit()
