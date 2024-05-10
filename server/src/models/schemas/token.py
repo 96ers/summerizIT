@@ -5,6 +5,8 @@ class Token(BaseModel):
     id: str
     access_token: str
     refresh_token: str
+    username: str
+    email: str
 
 
 class RefreshToken(BaseModel):
