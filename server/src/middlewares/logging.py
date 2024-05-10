@@ -34,7 +34,9 @@ class LoggingMiddleware(BaseHTTPMiddleware):
         if request.method != "GET":
             response_body = [chunk async for chunk in response.body_iterator]
             response.body_iterator = iterate_in_threadpool(iter(response_body))
-            response_body = response_body[0].decode()
+            print(response_body)
+            if response_body:
+                response_body = response_body[0].decode()
         else:
             response_body = {}
 
