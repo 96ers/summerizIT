@@ -1,28 +1,36 @@
-import axios from 'axios';
-import { loginStart, loginFailed, loginSuccess } from './authSlice';
-import { registerStart, registerFailed, registerSuccess } from './authSlice';
+import api from "./api";
+import { loginFailed, loginStart, loginSuccess } from "./authSlice";
+import { registerFailed, registerStart, registerSuccess } from "./authSlice";
 
-// API request to login user
-export const loginUser = async (user, dispatch, navigate) => {
-    dispatch(loginStart());
+export const loginUser = async(user, dispatch, navigate) => {
     try {
-        // đính kèm token vào header của request
-        const res = await axios.post("/api/v1/login", user);
+        dispatch(loginStart());
+        const res = await api.post('login', user);
         dispatch(loginSuccess(res.data));
-        navigate("/");
-    } catch (err) {
+        navigate('/auth');
+    } catch (error) {
         dispatch(loginFailed());
+        // handle error 400 
+        if (error.response.status === 400) {
+            console.log(error.response.data.message);
+            throw error.response.data.message;
+        } 
+
+        // handle error 422
+        if (error.response.status === 422) {
+            throw "Invalid email or password";
+        }
     }
 }
 
-// API request to register user
-export const registerUser = async (user, dispatch, navigate) => {
+export const registerUser = async(user, dispatch, navigate) => {
     dispatch(registerStart());
     try {
-        const res = await axios.post("/api/v1/register", user);
-        dispatch(registerSuccess(res.data));
-        navigate("/login");
-    } catch (err) {
+        await api.post('register', user);
+        dispatch(registerSuccess());
+        navigate('/login');
+    } catch (error) {
         dispatch(registerFailed());
+        console.log(error);
     }
 }
