@@ -6,7 +6,7 @@ import { AuthDemo } from './AuthDemo';
 import '../../App.css'
 
 export const AuthApp = () => {
-  // TODO: change login button to user logo with logout button
+  // TODO: implement account menu
 
   return (
     <main>

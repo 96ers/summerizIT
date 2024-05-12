@@ -102,7 +102,7 @@
 }
 
 .url_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-10 pr-12 text-sm shadow-lg font-satoshi font-medium focus:border-black focus:outline-none focus:ring-0;
+  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-10 pr-12 text-sm shadow-lg font-satoshi font-medium focus:border-black focus:outline-none focus:ring-0 hover:border-gray-400 hover:border-opacity-75;
 }
 
 .nav_gradient {
@@ -129,6 +129,54 @@
   @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-4;
 }
 
+.user_lg {
+  @apply w-auto h-auto rounded-full hover:shadow-lg hover:scale-110 transition-all;
+}
 
+.name_tag {
+  @apply w-full text-center text-lg font-bold leading-[1.2rem] px-0 py-5;
+}
 
+.dropdown-menu ul li {
+  @apply px-0 py-2.5 border-t-[rgba(0,0,0,0.05)] border-t border-solid;
+}
+
+.dropdownItem {
+  @apply flex mx-auto my-2.5;
+}
+
+.dropdownItem img {
+  @apply max-w-[20px] transition-[var(--speed)] mr-2.5;
+}
+
+.dropdownItem p {
+  @apply max-w-[100px] transition-colors ml-2.5;
+}
+
+.dropdown-menu ul li {
+  @apply px-0 pt-3 border-t-[rgba(0,0,0,0.05)] border-t border-solid;
+}
+.dropdown-menu ul li:hover p {
+  @apply text-[rgb(212,33,9)] cursor-pointer;
+}
+.dropdown-menu ul li:hover img {
+  @apply opacity-100 cursor-pointer;
+}
+
+.dropdown-menu.active {
+  @apply opacity-100 visible border-2 border-dashed border-sky-500 translate-y-0 transition-transform duration-[ease];
+}
+.dropdown-menu.inactive {
+  @apply opacity-0 invisible -translate-y-5 transition-[var(--speed)] duration-[ease];
+}
+
+.menu-trigger img {
+  @apply w-auto h-auto rounded-full hover:shadow-lg hover:scale-110 transition-all;
+}
+.dropdown-menu {
+  @apply absolute bg-gray-200 rounded-lg w-[200px] px-5 py-2.5 -right-4 top-[60px] before:content-[''] before:absolute before:top-[-5px] before:h-5 before:w-5 before:rotate-45 before:right-5;
+}
+.dropdown-menu::before {
+  @apply content-[''] absolute top-[-5px] h-5 w-5 rotate-45 right-5;
+}
 

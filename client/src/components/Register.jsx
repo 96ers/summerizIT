@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,16 +10,6 @@ import { signup_img } from "../assets";
 
 
 const Register = () => {
-  useEffect(() => {
-    showAlertContent(`username: nguyen[1-9]
-  password: @Nguyen123
-  email: nguyen[1-9]@gmail.com`);
-  }, []);
-
-  const showAlertContent = (content) => {
-    alert(content);
-  };
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
