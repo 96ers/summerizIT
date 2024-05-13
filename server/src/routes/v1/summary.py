@@ -1,5 +1,8 @@
-from fastapi import APIRouter, Depends, status
 from typing import List
+import httpx
+import json
+
+from fastapi import APIRouter, Depends, status
 
 from src.controllers import SummaryRequestController, SummaryResultController
 from src.controllers.factory import Factory
@@ -10,6 +13,7 @@ from src.utils.exceptions import InternalServerError
 
 summary_router = APIRouter()
 
+API_URL = "http://localhost:8001"
 
 @summary_router.post(
     "/summary",
@@ -38,13 +42,35 @@ async def summary(
         raise InternalServerError from e
 
     # Call service summary here
-    summarized_text = sum_req.text
+    try:
+        async with httpx.AsyncClient() as client:
+            body = {
+                "text": sum_req.text, 
+                "length": 10
+            }
+            if input.model.lower() == "bart":
+                api_path = f"{API_URL}/summary/bart"
+            else:
+                api_path = f"{API_URL}/summary/gpt"
+            response = await client.post(api_path, json=body)
+            print(response)
+            if response.status_code != status.HTTP_200_OK:
+                sum_req_controller.delete(sum_req)
+                raise InternalServerError(
+                    "Failed to get translation from external service"
+                )
+            response = response.json()
+            summarized_text = response["summarization"]
+    except Exception as e:
+        print(e)
+        summarized_text = sum_req.text
     # Create new instance summary result
     try:
         sum_res: SummaryResult = sum_res_controller.create(
             {"requestId": sum_req.id, "text": summarized_text}
         )
     except Exception as e:
+        sum_req_controller.delete(sum_req)
         raise InternalServerError from e
     return {"summarized_text": sum_res.text}
 

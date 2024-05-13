@@ -61,6 +61,3 @@ def translate(text, EngToViet):
         return translate_en2vi(text)
     else:
         return translate_vi2en(text)
-    
-    return ""
-
