@@ -3,12 +3,10 @@ import App from './App'; // Import App component
 import Login from './components/Login'; // Import Login component
 import Register from './components/Register'; // Import Register component
 import { AuthApp } from './components/auth/AuthApp'; // Import AuthApp component
-import PrivateRoute from './components/auth/PrivateRoute';
+import PrivateRoute from './components/auth/PrivateRoute'; // Import PrivateRoute component
 import AuthHistory from './components/auth/AuthHistory';
 
 // TODO:temporary route for testing
-
-
 
 const Root = () => {
   return (
