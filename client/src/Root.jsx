@@ -4,7 +4,9 @@ import Login from './components/Login'; // Import Login component
 import Register from './components/Register'; // Import Register component
 import { AuthApp } from './components/auth/AuthApp'; // Import AuthApp component
 import PrivateRoute from './components/auth/PrivateRoute';
+import AuthHistory from './components/auth/AuthHistory';
 
+// TODO:temporary route for testing
 
 
 
@@ -15,6 +17,14 @@ const Root = () => {
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/history"
+          element={
+            <PrivateRoute>
+              <AuthHistory />
+            </PrivateRoute>
+          }>
+        </Route>
         <Route 
           path='/auth'
           element={

@@ -1,13 +1,45 @@
-import { logo, user_logo } from "../../assets";
-
-
-import { Link } from "react-router-dom";
-
-import { useSelector } from "react-redux";
+import { logo, user_logo, logout, app_history } from "../../assets";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import DropdownItem from "./DropdownItem";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../redux/apiRequest";
 
 const AuthHero = () => {
-
+  // get the user logged from the store
   const user = useSelector((state) => state.auth.login.currentUser);
+  const access_token = user?.access_token;
+  const user_id = user?.id;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //logout 
+  const handleLogout = () => {
+    logOut(dispatch, navigate, access_token, user_id)
+      .catch((err) => console.log(err));
+  }
+
+  // account menu
+  let menuRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    let handler = (e) => {
+      if (!menuRef.current.contains(e.target)) {
+        setOpen(false);
+        console.log(menuRef.current);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+
+
+
 
   return (
     <header className="w-full flex justify-center items-center flex-col">
@@ -17,13 +49,26 @@ const AuthHero = () => {
       >
         <img src={logo} alt="sumz_logo" className="w-28 object-contain" />
         {/*Add the username when logged in*/}
-        <h2 className="font-satoshi font-bold text-gray-600 text-xl">
-          <span className="blue_gradient" >Hello, </span>
-          {user.username}
-        </h2>
-        {/* Add user logo */}
-        <img src={user_logo} alt="user_logo" />
 
+        <div className="menu-container" ref={menuRef}>
+          <div
+            className="menu-trigger"
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            <img src={user_logo} alt="user_logo" />
+          </div>
+
+          <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
+            <h3 className="name_tag"><span className="blue_gradient">Hello, </span>{user.username}</h3>
+
+            <ul>
+              <DropdownItem img={app_history} text="App History" link="/history" />
+              <DropdownItem img={logout} text="Logout" onClick={handleLogout}/>
+            </ul>
+          </div>
+        </div>
       </nav>
 
       <h1 className="head_text">
