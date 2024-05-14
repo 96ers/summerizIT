@@ -185,7 +185,7 @@ async def summarize_by_bart(Sr: SummarizationRequest):
             input, 2000, 800, 400, 300, Sr.length + 100, Sr.length
         )
     else:
-        return_value = bart.summarize(input, 400, 200)[0]["summary_text"]
+        return_value = bart.summarize(input, Sr.length + 30, Sr.length)[0]["summary_text"]
 
     return {"summarization": return_value}
 
