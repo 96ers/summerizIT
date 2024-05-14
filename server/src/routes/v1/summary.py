@@ -1,6 +1,5 @@
 from typing import List
 import httpx
-import json
 
 from fastapi import APIRouter, Depends, status
 
@@ -63,7 +62,7 @@ async def summary(
             summarized_text = response["summarization"]
     except Exception as e:
         print(e)
-        summarized_text = sum_req.text
+        summarized_text = sum_req.text + input.model
     # Create new instance summary result
     try:
         sum_res: SummaryResult = sum_res_controller.create(
@@ -102,3 +101,33 @@ async def get_summary(
         }
         response.append(res)
     return response
+
+
+@summary_router.post(
+    "/summary-free",
+    status_code=status.HTTP_200_OK,
+)
+async def summary(
+    input: SummaryInput,
+) -> SummaryOutput:
+    # Call service summary here
+    print(input)
+    try:
+        async with httpx.AsyncClient() as client:
+            body = {"text": input.source_text, "length": 5}
+            if input.model.lower() == "bart":
+                api_path = f"{API_URL}/summary/bart"
+            else:
+                api_path = f"{API_URL}/summary/gpt"
+            response = await client.post(api_path, json=body)
+            print(response)
+            if response.status_code != status.HTTP_200_OK:
+                raise InternalServerError(
+                    "Failed to get translation from external service"
+                )
+            response = response.json()
+            summarized_text = response["summarization"]
+    except Exception as e:
+        print(e)
+        summarized_text = input.source_text + input.model
+    return {"summarized_text": summarized_text}

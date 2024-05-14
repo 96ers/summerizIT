@@ -58,7 +58,7 @@ async def translate(
             response = response.json()        
             translated_text = response["translation"]
     except Exception as e:
-        translated_text = tran_req.text
+        translated_text = tran_req.text + input.model
         print(e)
 
     # Create new instance translation result
@@ -98,3 +98,31 @@ async def get_translation(
         }
         response.append(res)
     return response
+
+
+@translate_router.post(
+    "/translate-free",
+    status_code=status.HTTP_200_OK,
+)
+async def translate(
+    input: TranslateInput,
+) -> TranslateOutput:
+    # Call service translate here
+    try:
+        async with httpx.AsyncClient() as client:
+            body = {"text": input.source_text, "EngToViet": True}
+            if input.model.lower() == "vinai":
+                api_path = f"{API_URL}/translate/vinai"
+            else:
+                api_path = f"{API_URL}/translate/gpt"
+            response = await client.post(api_path, json=body, timeout=None)
+            if response.status_code != status.HTTP_200_OK:
+                raise InternalServerError(
+                    "Failed to get translation from external service"
+                )
+            response = response.json()
+            translated_text = response["translation"]
+    except Exception as e:
+        translated_text = input.source_text + input.model
+        print(e)
+    return {"translated_text": translated_text}
