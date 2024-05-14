@@ -54,7 +54,7 @@ async def translate(Tr: TranslationRequest):
     Returns:
        json response: {"translation" : str}
     """
-    # call the mTet translate method
+    # call the vinAi translate method
     translation = vinAi.translate(Tr.text, Tr.EngToViet)
     return {"translation": translation}
 
@@ -98,7 +98,7 @@ async def summarize(Tr: SummarizationRequest):
                 "role": "user",
                 "content": "Please summarize the following text.The summarize text should shoud be "
                 + str(Tr.length)
-                + " tokens : "
+                + " tokens and if the input is a mix of vietnamese and english the output should also be a mix of vietnamese and english: "
                 + str(Tr.text)
             },
         ],
