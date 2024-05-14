@@ -1,12 +1,15 @@
 import Root from './Root'; // Import Root component
 import { Provider } from 'react-redux';
-import store from './redux/store';
-import ReactDom from 'react-dom';
-// Sử dụng createRoot() thay vì ReactDOM.render()
+import { store, persistor } from './redux/store';
+import ReactDOM from 'react-dom/client';
+import { PersistGate } from 'redux-persist/integration/react';
+const rootElement = document.getElementById('root');
+const root = ReactDOM.createRoot(rootElement);
 
-ReactDom.render(
+root.render(
     <Provider store={store}>
-        <Root />
-    </Provider>,
-    document.getElementById('root')
-)
+        <PersistGate loading={null} persistor={persistor}>
+            <Root />
+        </PersistGate>
+    </Provider>
+);

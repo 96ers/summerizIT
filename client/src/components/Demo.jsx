@@ -1,11 +1,38 @@
-import { useState } from 'react';
-import { copy, linkIcon, loader, tick, submit } from "../assets";
+import { useState } from "react";
+import {
+  copy,
+  linkIcon,
+  loader,
+  tick,
+  submit,
+  book,
+  delete_btn,
+} from "../assets";
 import { Link } from "react-router-dom";
 
 const Demo = () => {
-  const [option, setOption] = useState("Paste");
-  const [showComboBox, setShowComboBox] = useState(false);
+  const [inputType, setInputType] = useState("text");
+  const [fileUploaded, setFileUploaded] = useState(false);
 
+  // handle: upload a pdf file
+  const handleInputChange = (event) => {
+    // check if a file is uploaded
+    const file = event.target.files[0];
+    if (file) {
+      setFileUploaded(true);
+    }
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    // handle change in input file
+    if (fileUploaded) {
+      setInputType("text");
+      setFileUploaded(false);
+    } else {
+      setInputType("file");
+    }
+  };
   return (
     <section className="mt-16 w-full max-w gap-2">
       {/* Show the input form */}
@@ -15,43 +42,30 @@ const Demo = () => {
           onSubmit={() => {}}
         >
           <img
-            src={linkIcon}
-            alt="link_icon"
+            src={book}
+            alt="book"
             className="absolute left-0 my-2 ml-3 w-5"
-            onClick={() => setShowComboBox(prevShow => !prevShow)}
+          />
+          <input
+            type={inputType}
+            accept={inputType === "file" ? ".pdf" : undefined}
+            placeholder="Enter the text or upload a PDF file"
+            className="url_input peer"
+            onChange={handleInputChange}
           />
 
-          {showComboBox && (
-            <select
-              value={option}
-              onChange={(e) => setOption(e.target.value)}
-              className="absolute left-0 my-2 ml-3 w-5"
-            >
-              <option value="Paste">Paste</option>
-              <option value="PDF">PDF</option>
-            </select>
-          )}
-
-          {option === "Paste" ? (
-            <input
-              type="text"
-              placeholder="Paste the article here!"
-              value=""
-              onChange={() => {}}
-              required
-              className="url_input peer"
+          <button
+            className="link_btn"
+            onClick={handleClick}
+            title={!fileUploaded ? "Upload a file" : "Delete this file"}
+          >
+            <img
+              src={fileUploaded ? delete_btn : linkIcon}
+              alt="Upload a pdf file"
             />
-          ) : (
-            <input
-              type="file"
-              accept=".pdf"
-              onChange={() => {}}
-              required
-              className="url_input peer"
-            />
-          )}
+          </button>
 
-          <button type="submit" className='submit_btn'>
+          <button type="submit" className="submit_btn" title="Go!">
             <img src={submit} alt="Submit" />
           </button>
         </form>

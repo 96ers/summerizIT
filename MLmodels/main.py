@@ -10,7 +10,6 @@ import bart
 import mTet
 import vinAi
 
-#run with bash : python main.py
 load_dotenv()
 class TranslationRequest(BaseModel):
     text: str
@@ -29,8 +28,8 @@ class TokenRequest(BaseModel):
 app = FastAPI()
 
 
-@app.get("/mTetTranslate")
-async def translate(Tr: TranslationRequest):
+@app.post("/translate/mtet")
+async def translate_by_mTet(Tr: TranslationRequest):
     """mTet translation api
 
     Args:
@@ -44,8 +43,8 @@ async def translate(Tr: TranslationRequest):
     return {"translation": translation}
 
 
-@app.get("/vinAiTranslate")
-async def translate(Tr: TranslationRequest):
+@app.post("/translate/vinai")
+async def translate_by_vinAi(Tr: TranslationRequest):
     """_summary_
 
     Args:
@@ -59,8 +58,8 @@ async def translate(Tr: TranslationRequest):
     return {"translation": translation}
 
 
-@app.get("/ChatGptSummarize")
-async def summarize(Tr: SummarizationRequest):
+@app.post("/summary/gpt")
+async def summarize_by_gpt(Tr: SummarizationRequest):
     """chatGpt summarize api
 
     Args:
@@ -70,7 +69,7 @@ async def summarize(Tr: SummarizationRequest):
         HTTPException: status_code = 400 if tokens exceed limit
 
     Returns:
-        json response body : {"Summarization" : str}
+        json response body : {"summarization" : str}
     """
     # encode the input to get tokens
     encoding = tiktoken.get_encoding("cl100k_base")
@@ -104,11 +103,12 @@ async def summarize(Tr: SummarizationRequest):
         ],
     )
 
-    return {"Summarization": completion.choices[0].message.content}
+    return {"summarization": completion.choices[0].message.content}
 
 
-@app.get("/ChatGptTranslate")
-async def summarize(Tr: TranslationRequest):
+@app.post("/translate/gpt")
+async def translate_by_gpt(Tr: TranslationRequest):
+    print(Tr)
     """chatGpt translate api
 
     Args:
@@ -154,11 +154,11 @@ async def summarize(Tr: TranslationRequest):
         ],
     )
 
-    return {"Translation": completion.choices[0].message}
+    return {"translation": completion.choices[0].message.content}
 
 
-@app.get("/BartSummarize")
-async def summarize(Sr: SummarizationRequest):
+@app.post("/summary/bart")
+async def summarize_by_bart(Sr: SummarizationRequest):
     """bart model summarize api
     Args:
         Tr (SummarizationRequest): {"text": str, "length": int} (length is in tokens)
@@ -187,10 +187,10 @@ async def summarize(Sr: SummarizationRequest):
     else:
         return_value = bart.summarize(input, 400, 200)[0]["summary_text"]
 
-    return {"Summarization": return_value}
+    return {"summarization": return_value}
 
 
-@app.get("/TokenCheck")
+@app.post("/checktoken")
 async def summarize(Tr: TokenRequest):
     """returns the token and token count of text
 

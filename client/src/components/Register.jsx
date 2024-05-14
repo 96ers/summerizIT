@@ -1,32 +1,42 @@
-// Register.jsx
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { signup_img } from "../assets"; 
+
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/apiRequest";
 
+
 import { logo } from "../assets";
+import { signup_img } from "../assets"; 
+
 
 const Register = () => {
-  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRepassword] = useState("");
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  const [error, setError] = useState("");
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Xử lý đăng ký ở đây (gửi yêu cầu đến máy chủ)
+    if (password !== repassword) {
+      setError("Passwords do not match");
+      return;
+    }
     const newUser = {
-      
-      username: username,
       email: email,
       password: password,
-      
+      username: username,
     };
-    registerUser(newUser, dispatch, history);
-  };
+    registerUser(newUser, dispatch, navigate)
+      .catch((err) => setError(err));
+  }
+
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -51,11 +61,11 @@ const Register = () => {
             Sign up now and join <strong>SummarIT!</strong>
           </span>
           <form onSubmit={handleSubmit}>
-          <div className="py-2">
+            <div className="py-2">
               <span className="mb-2 text-md">Username</span>
               <input
                 type="text"
-                className="w-full p-2 border border-gray-300 rounded-md placeholder-font-light placeholder-text-gray-500"
+                className={`w-full p-2 border rounded-md placeholder-font-light placeholder-text-gray-500`}
                 name="username"
                 id="username"
                 value={username}
@@ -66,7 +76,7 @@ const Register = () => {
               <span className="mb-2 text-md">Email</span>
               <input
                 type="text"
-                className="w-full p-2 border border-gray-300 rounded-md placeholder-font-light placeholder-text-gray-500"
+                className={`w-full p-2 border rounded-md placeholder-font-light placeholder-text-gray-500`}
                 name="email"
                 id="email"
                 value={email}
@@ -79,7 +89,7 @@ const Register = () => {
                 type="password"
                 name="password"
                 id="password"
-                className="w-full p-2 border border-gray-300 rounded-md placeholder-font-light placeholder-text-gray-500"
+                className={`w-full p-2 border rounded-md placeholder-font-light placeholder-text-gray-500`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -94,6 +104,7 @@ const Register = () => {
                 value={repassword}
                 onChange={(e) => setRepassword(e.target.value)}
               />
+              {error && <div className="text-red-500">{error}</div>}
             </div>
             <button
               type="submit"

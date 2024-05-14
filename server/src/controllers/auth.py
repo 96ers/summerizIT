@@ -25,6 +25,8 @@ class AuthController(BaseController[User]):
 
         # Check if user exists with username
         user = self.repository.get_by_username(username)
+        if user:
+            raise BadRequestException("User already exists with this username")
 
         # Hash password
         password = PasswordHandler.hash(password=password)
@@ -63,6 +65,8 @@ class AuthController(BaseController[User]):
                 payload={"user_id": user.id, "email": user.email},
                 token_type='refresh'
             ),
+            username=user.username,
+            email=user.email
         )
 
     def login(self, email: EmailStr, password: str) -> Token:
@@ -104,13 +108,15 @@ class AuthController(BaseController[User]):
             access_token=JWTHandler.encode(
                 key=publicKey,
                 payload={"user_id": user.id, "email": user.email},
-                token_type='access'
+                token_type="access",
             ),
             refresh_token=JWTHandler.encode(
                 key=privateKey,
                 payload={"user_id": user.id, "email": user.email},
-                token_type='refresh'
+                token_type="refresh",
             ),
+            username=user.username,
+            email=user.email,
         )
 
     def refresh(self, id: str, refresh_token: str) -> Token:

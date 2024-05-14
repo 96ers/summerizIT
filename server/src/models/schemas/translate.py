@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class TranslateInput(BaseModel):
     source_text: str
+    model: str = "gpt"
 
 
 class TranslateOutput(BaseModel):

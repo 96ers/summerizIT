@@ -10,7 +10,7 @@ class UserView(ModelView):
         "username",
         "email",
         "password",
-        EnumField("role", choices=AVAILABLE_USER_TYPES, select2=False)
+        EnumField("role", choices=AVAILABLE_USER_TYPES, select2=False),
     ]
 
 
@@ -18,13 +18,13 @@ class TranslateView(ModelView):
     fields = [
         "id",
         "text",
-        EnumField("language", choices=AVAILABLE_LANGUAGE, select2=False)
+        EnumField("language", choices=AVAILABLE_LANGUAGE, select2=False),
     ]
 
 
-class SummeryView(ModelView):
+class SummaryView(ModelView):
     fields = [
         "id",
         "text",
-        EnumField("language", choices=AVAILABLE_LANGUAGE, select2=False)
+        EnumField("language", choices=AVAILABLE_LANGUAGE, select2=False),
     ]
