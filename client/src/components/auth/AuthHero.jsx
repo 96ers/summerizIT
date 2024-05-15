@@ -17,6 +17,7 @@ const AuthHero = () => {
   const handleLogout = () => {
     logOut(dispatch, navigate, access_token, user_id)
       .catch((err) => console.log(err));
+    localStorage.clear();
   }
 
   // account menu
@@ -27,7 +28,6 @@ const AuthHero = () => {
     let handler = (e) => {
       if (!menuRef.current.contains(e.target)) {
         setOpen(false);
-        console.log(menuRef.current);
       }
     };
 

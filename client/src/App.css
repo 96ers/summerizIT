@@ -94,7 +94,7 @@
 }
 
 .orange_gradient {
-  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent font-black;
 }
 
 .desc {
@@ -102,7 +102,7 @@
 }
 
 .url_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-10 pr-12 text-sm shadow-lg font-satoshi font-medium focus:border-black focus:outline-none focus:ring-0 hover:border-gray-400 hover:border-opacity-75;
+  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-10 pr-28 text-sm shadow-lg font-satoshi font-medium focus:border-black focus:outline-none focus:ring-0 hover:border-gray-400 hover:border-opacity-75 overflow-hidden text-ellipsis;
 }
 
 .nav_gradient {
@@ -117,6 +117,9 @@
   @apply p-3 flex justify-start items-center flex-row bg-white border border-gray-200 gap-3 rounded-lg cursor-pointer;
 }
 
+.history_item {
+  @apply flex-1 font-satoshi text-black font-medium text-sm truncate
+}
 .copy_btn {
   @apply w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
 }
@@ -126,7 +129,7 @@
 }
 
 .summary_box {
-  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-4;
+  @apply rounded-xl border border-gray-200 bg-white/20 shadow-2xl backdrop-blur p-4;
 }
 
 .user_lg {

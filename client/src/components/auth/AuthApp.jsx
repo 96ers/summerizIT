@@ -1,6 +1,4 @@
 import AuthHero from './AuthHero';
-import Demo from '../Demo';
-
 import { AuthDemo } from './AuthDemo';
 
 import '../../App.css'
@@ -16,7 +14,7 @@ export const AuthApp = () => {
 
       <div className="app">
         <AuthHero/>
-        <Demo/>
+        <AuthDemo/>
       </div>
     </main>
   );
