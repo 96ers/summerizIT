@@ -1,7 +1,15 @@
 
 const AuthHistory = () => {
   return (
-    <div>AuthHistory</div>
+    <main>
+      <div className="main">
+        <div className="gradient"></div>
+      </div>
+
+      <div className="app">
+        
+      </div>
+    </main>
   )
 }
 

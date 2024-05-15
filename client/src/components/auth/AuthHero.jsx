@@ -17,7 +17,7 @@ const AuthHero = () => {
   const handleLogout = () => {
     logOut(dispatch, navigate, access_token, user_id)
       .catch((err) => console.log(err));
-    localStorage.clear();
+    sessionStorage.clear();
   }
 
   // account menu

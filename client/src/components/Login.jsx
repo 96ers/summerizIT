@@ -79,18 +79,14 @@ const Login = () => {
             </div>
             {error && <div className="text-red-500">{error}</div>}
             <div className="flex justify-between w-full py-4">
-              <div className="mr-24">
-                <input type="checkbox" name="ch" id="ch" className="mr-2" />
-                <span className="text-md">Remember me</span>
-              </div>
-              <span className="font-bold text-md">Forgot password</span>
+              
             </div>
             <button type="submit" className="black_btn w-full p-2 mb-6 ">
               Sign in
             </button>
           </form>
           <div className="text-center text-gray-400">
-            Don't have an account? &nbsp;
+            Don&apos;t have an account? &nbsp;
             <span>
               <Link to="/register" className="font-bold text-black">
                 Sign up for free

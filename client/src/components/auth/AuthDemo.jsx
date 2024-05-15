@@ -55,12 +55,12 @@ export const AuthDemo = () => {
   };
   // loading local storage on mount
   useEffect(() => {
-    const articlesFromLocalStorage = JSON.parse(
-      localStorage.getItem("articles")
+    const articlesSessionStorage = JSON.parse(
+      sessionStorage.getItem("articles")
     );
 
-    if (articlesFromLocalStorage) {
-      setAllArticles(articlesFromLocalStorage);
+    if (articlesSessionStorage) {
+      setAllArticles(articlesSessionStorage);
     }
   }, []);
 
@@ -127,7 +127,7 @@ export const AuthDemo = () => {
         const updatedAllArticles = [...allArticles, newArticle];
         setAllArticles(updatedAllArticles);
         // save to local storage
-        localStorage.setItem("articles", JSON.stringify(updatedAllArticles));
+        sessionStorage.setItem("articles", JSON.stringify(updatedAllArticles));
       }
     }
     console.log(`Article: ${JSON.stringify(allArticles)}`);
