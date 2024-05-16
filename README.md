@@ -13,7 +13,7 @@
 
 ## Screenshots
 
-![App Screenshot](https://ibb.co/k1NLGRq)
+[![app-screenshot.png](https://i.postimg.cc/8CS5CwTc/app-screenshot.png)](https://postimg.cc/rDfcn102)
 ## Tech Stack
 
 **Client:** React, TailwindCss, React-redux
