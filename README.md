@@ -13,11 +13,10 @@
 
 ## Screenshots
 
-![App Screenshot](https://lanecdr.org/wp-content/uploads/2019/08/placeholder.png)
-
+![App Screenshot](https://ibb.co/k1NLGRq)
 ## Tech Stack
 
-**Client:** React
+**Client:** React, TailwindCss, React-redux
 
 **Server:** FastAPI
 
