@@ -29,7 +29,11 @@ const Login = () => {
     // 
     loginUser(newUser, dispatch, navigate)
     // if error occurs, set error message
+      .then(() => {
+        sessionStorage.clear();
+      })
       .catch((err) => setError(err));
+
   };
 
   return (

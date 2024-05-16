@@ -76,7 +76,7 @@
 }
 
 .black_btn {
-  @apply rounded-full border border-black bg-black py-1.5 px-5 text-sm text-white transition-all hover:bg-white hover:text-black;
+  @apply rounded-full border-2 border-black bg-black py-1.5 px-5 text-sm text-white transition-all hover:bg-white hover:text-black;
 }
 
 .submit_btn {
@@ -102,7 +102,7 @@
 }
 
 .url_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-10 pr-28 text-sm shadow-lg font-satoshi font-medium focus:border-black focus:outline-none focus:ring-0 hover:border-gray-400 hover:border-opacity-75 overflow-hidden text-ellipsis;
+  @apply block w-full rounded-md border-2 border-gray-200 bg-white py-2.5 pl-10 pr-28 text-sm shadow-lg font-satoshi font-medium focus:border-black focus:outline-none focus:ring-0 hover:border-gray-400 hover:border-opacity-75 ;
 }
 
 .nav_gradient {
@@ -110,11 +110,11 @@
 }
 
 .submit_btn {
-  @apply hover:border-gray-700 hover:text-gray-700 absolute inset-y-0 right-0 my-1.5 mr-1.5 flex w-10 items-center justify-center rounded border border-gray-200 font-sans text-sm font-medium text-gray-400;
+  @apply hover:border-gray-700 hover:text-gray-700 absolute inset-y-0 right-0 my-1.5 mr-1.5 flex w-10 items-center justify-center rounded border-2 border-gray-200 font-sans text-sm font-medium text-gray-400;
 }
 
 .link_card {
-  @apply p-3 flex justify-start items-center flex-row bg-white border border-gray-200 gap-3 rounded-lg cursor-pointer;
+  @apply p-3 flex justify-start items-center flex-row bg-white border-2 border-gray-300 gap-3 rounded-lg cursor-pointer;
 }
 
 .history_item {
@@ -129,7 +129,11 @@
 }
 
 .summary_box {
-  @apply rounded-xl border border-gray-200 bg-white/20 shadow-2xl backdrop-blur p-4;
+  @apply rounded-xl border-2 border-dashed border-blue-600 bg-white/20 shadow-2xl backdrop-blur p-4;
+}
+
+.translate_box {
+  @apply rounded-xl border-2 border-dashed border-orange-600 bg-white/20 shadow-2xl backdrop-blur p-4;
 }
 
 .user_lg {
@@ -181,5 +185,23 @@
 }
 .dropdown-menu::before {
   @apply content-[''] absolute top-[-5px] h-5 w-5 rotate-45 right-5;
+}
+
+.alert_box {
+  @apply p-2 mb-4 mt-4 text-red-800 font-medium font-sans border border-dashed border-red-300 rounded-lg bg-red-50  dark:text-red-600 dark:border-red-800 shadow-lg shadow-red-200
+}
+
+.alert_box_yellow {
+  @apply p-2 mb-4 mt-4 text-yellow-500 font-medium font-sans border-2 border-dashed border-yellow-200 rounded-lg bg-yellow-50  dark:text-yellow-500 dark:border-orange-200 shadow-lg shadow-yellow-100
+}
+
+
+
+.alert_login {
+  @apply text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800
+}
+
+.alert_signup {
+  @apply text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-xs px-3 py-1  text-center dark:hover:bg-red-600 dark:border-red-600 dark:hover:text-white dark:focus:ring-red-800;
 }
 

@@ -1,4 +1,5 @@
-
+import AuthHistoryHero from "./AuthHistoryHero"
+import AuthHistoryDemo from "./AuthHistoryDemo"
 const AuthHistory = () => {
   return (
     <main>
@@ -7,7 +8,8 @@ const AuthHistory = () => {
       </div>
 
       <div className="app">
-        
+        <AuthHistoryHero/>
+        <AuthHistoryDemo/>
       </div>
     </main>
   )

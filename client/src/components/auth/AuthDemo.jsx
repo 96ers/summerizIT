@@ -35,6 +35,7 @@ export const AuthDemo = () => {
     event.preventDefault();
     
     if (inputType === "text") {
+      setArticle({...article, input: event.target.value});
       setInputValue(event.target.value);
     } else if (inputType === "file") {
       const file = event.target.files[0];
@@ -67,9 +68,9 @@ export const AuthDemo = () => {
   // handle form submit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setArticle
+
     const existingArticle = allArticles.find(
-      (item) => item.input === inputValue
+      (item) => item.input === article.input
     );
     if (existingArticle) {
       return setArticle(existingArticle);
@@ -156,13 +157,15 @@ export const AuthDemo = () => {
           <img
             src={book}
             alt="book"
-            className="absolute left-0 my-2 ml-3 w-5"
+            className="absolute left-0 my-2 ml-3 w-5 cursor-pointer"
+            onClick={() => setInputType("text")}
           />
           <input
             type={inputType}
             accept={inputType === "file" ? ".pdf" : ""}
             placeholder="Enter the text or upload a PDF file"
             className="url_input"
+            value={article.input}
             required
             onChange={handleInputChange}
             onKeyDown={(e) => e.key === "Enter" && handleFormSubmit(e)}
@@ -182,16 +185,17 @@ export const AuthDemo = () => {
           </button>
         </form>
       </div>
+
       {/*History*/}
       <div className="flex flex-col gap-1 max-h-60 overflow-y-auto mt-4">
         {allArticles.slice().reverse().map((item, index) => (
           <div key={`link-${index}`} onClick={() => setArticle(item)} className="link_card">
-            <div className="copy_btn" onClick={() => handleCopy(item.summary)}>
+            <div className="copy_btn" onClick={() => handleCopy(item.input)}>
               <img 
-                src={copied === item.summary ? tick : copy} 
-                alt={copied === item.url ? "tick_icon" : "copy_icon"}
+                src={copied === item.input ? tick : copy} 
+                alt={copied === item.input ? "tick_icon" : "copy_icon"}
                 className='w-[40%] h-[40%] object-contain'
-                title={copied === item.summary ? "copied" : "copy"}/>
+                title={copied === item.input ? "copied" : "copy"}/>
             </div>
             <p className="history_item">
               {item.input}
@@ -199,6 +203,7 @@ export const AuthDemo = () => {
           </div>
         ))}
       </div>
+      
       {/*Show Result*/}
       <div className="my-10 max-w-full flex justify-center items-center">
         {isFetching ? (
@@ -241,7 +246,7 @@ export const AuthDemo = () => {
                   </p>
                 </div>
               ) : (
-                <div className="summary_box">
+                <div className="translate_box">
                   <p className="font-inter font-medium text-sm text-gray-700">
                     {article.translated_summary}
                   </p>

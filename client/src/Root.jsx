@@ -4,8 +4,7 @@ import Login from './components/Login'; // Import Login component
 import Register from './components/Register'; // Import Register component
 import { AuthApp } from './components/auth/AuthApp'; // Import AuthApp component
 import PrivateRoute from './components/auth/PrivateRoute';
-import AuthHistory from './components/auth/AuthHistory';
-
+import AuthHistory from './components/auth/History/AuthHistory';
 // TODO:temporary route for testing
 
 

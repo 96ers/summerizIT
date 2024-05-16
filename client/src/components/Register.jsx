@@ -70,6 +70,7 @@ const Register = () => {
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                required
               />
             </div>
             <div className="py-2">
@@ -81,6 +82,7 @@ const Register = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className="py-2">
@@ -92,6 +94,7 @@ const Register = () => {
                 className={`w-full p-2 border rounded-md placeholder-font-light placeholder-text-gray-500`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
             <div className="py-2">
@@ -103,6 +106,7 @@ const Register = () => {
                 className="w-full p-2 border border-gray-300 rounded-md placeholder-font-light placeholder-text-gray-500"
                 value={repassword}
                 onChange={(e) => setRepassword(e.target.value)}
+                required
               />
               {error && <div className="text-red-500">{error}</div>}
             </div>

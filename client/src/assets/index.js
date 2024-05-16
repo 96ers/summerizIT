@@ -11,6 +11,9 @@ import book from './book.svg'
 import delete_btn from './delete.svg'
 import app_history from './app_history.svg'
 import logout from './logout.svg'
+import history_auth from './history_auth.svg'
+import i from './i.svg'
+import i2 from './i2.svg'
 
 export {
     linkIcon,
@@ -25,5 +28,8 @@ export {
     book,
     delete_btn,
     app_history,
-    logout
+    logout,
+    history_auth,
+    i,
+    i2
 }
