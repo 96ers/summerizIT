@@ -24,7 +24,7 @@ const Demo = () => {
   });
   // set access limit counter to 10 
   const [counter, setCounter] = useState(() => {
-    const savedCounter = localStorage.getItem("counter");
+    const savedCounter = sessionStorage.getItem("counter");
     return savedCounter ? JSON.parse(savedCounter) : 10;
   });
   //get api state
@@ -44,10 +44,10 @@ const Demo = () => {
 
   // get the counter from local storage
   useEffect(() => {
-    localStorage.setItem('counter', JSON.stringify(counter));
+    sessionStorage.setItem('counter', JSON.stringify(counter));
   }, [counter]);
 
-  
+
   // handle: upload a pdf file
   const handleInputChange = (event) => {
     event.preventDefault();

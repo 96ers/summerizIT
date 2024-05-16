@@ -77,7 +77,7 @@ const AuthHistoryHero = () => {
         <span className="orange_gradient ">Our AI tool!</span>
       </h1>
       <h2 className="desc">
-        Let&apos;s look back at youralkfs;djsafl;djfklsadjflks amazing journey with SummarIT!
+        Let&apos;s look back at your amazing journey with SummarIT!
       </h2>
     </header>
   );

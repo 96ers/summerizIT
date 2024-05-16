@@ -33,9 +33,9 @@ export const AuthDemo = () => {
   // handle input change
   const handleInputChange = (event) => {
     event.preventDefault();
-    
+
     if (inputType === "text") {
-      setArticle({...article, input: event.target.value});
+      setArticle({ ...article, input: event.target.value });
       setInputValue(event.target.value);
     } else if (inputType === "file") {
       const file = event.target.files[0];
@@ -132,6 +132,7 @@ export const AuthDemo = () => {
       }
     }
     console.log(`Article: ${JSON.stringify(allArticles)}`);
+    
   };
 
   // handle show translate
@@ -144,7 +145,7 @@ export const AuthDemo = () => {
     setCopied(text);
     navigator.clipboard.writeText(text);
     setTimeout(() => setCopied(false), 3000);
-  }
+  };
 
   return (
     <section className="mt-16 w-full max-w max-w-xl">
@@ -188,22 +189,28 @@ export const AuthDemo = () => {
 
       {/*History*/}
       <div className="flex flex-col gap-1 max-h-60 overflow-y-auto mt-4">
-        {allArticles.slice().reverse().map((item, index) => (
-          <div key={`link-${index}`} onClick={() => setArticle(item)} className="link_card">
-            <div className="copy_btn" onClick={() => handleCopy(item.input)}>
-              <img 
-                src={copied === item.input ? tick : copy} 
-                alt={copied === item.input ? "tick_icon" : "copy_icon"}
-                className='w-[40%] h-[40%] object-contain'
-                title={copied === item.input ? "copied" : "copy"}/>
+        {allArticles
+          .slice()
+          .reverse()
+          .map((item, index) => (
+            <div
+              key={`link-${index}`}
+              onClick={() => setArticle(item)}
+              className="link_card"
+            >
+              <div className="copy_btn" onClick={() => handleCopy(item.input)}>
+                <img
+                  src={copied === item.input ? tick : copy}
+                  alt={copied === item.input ? "tick_icon" : "copy_icon"}
+                  className="w-[40%] h-[40%] object-contain"
+                  title={copied === item.input ? "copied" : "copy"}
+                />
+              </div>
+              <p className="history_item">{item.input}</p>
             </div>
-            <p className="history_item">
-              {item.input}
-            </p>
-          </div>
-        ))}
+          ))}
       </div>
-      
+
       {/*Show Result*/}
       <div className="my-10 max-w-full flex justify-center items-center">
         {isFetching ? (
