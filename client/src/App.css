@@ -114,7 +114,7 @@
 }
 
 .link_card {
-  @apply p-3 flex justify-start items-center flex-row bg-white border-2 border-gray-300 gap-3 rounded-lg cursor-pointer;
+  @apply p-3 flex justify-start items-center flex-row bg-white border-2 border-gray-300 gap-3 rounded-lg cursor-pointer shadow-2xl shadow-gray-400;
 }
 
 .history_item {
@@ -129,11 +129,11 @@
 }
 
 .summary_box {
-  @apply rounded-xl border-2 border-dashed border-blue-600 bg-white/20 shadow-2xl backdrop-blur p-4;
+  @apply rounded-xl border-2 border-dashed border-blue-600 bg-white/20 shadow-2xl shadow-blue-200 backdrop-blur p-4;
 }
 
 .translate_box {
-  @apply rounded-xl border-2 border-dashed border-orange-600 bg-white/20 shadow-2xl backdrop-blur p-4;
+  @apply rounded-xl border-2 border-dashed border-orange-600 bg-white/20 shadow-2xl shadow-orange-200 backdrop-blur p-4;
 }
 
 .user_lg {
