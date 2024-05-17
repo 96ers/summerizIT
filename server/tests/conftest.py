@@ -26,7 +26,7 @@ def start_application():
     return app
 
 
-engine = create_engine(config.mysql.URI,
+engine = create_engine(config.mysql.get_uri(),
                        connect_args={"check_same_thread": False}
                        )
 # Use connect_args param only with mysql

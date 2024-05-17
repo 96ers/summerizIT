@@ -11,4 +11,5 @@ class MySQLConfig(BaseSettings):
     DRIVER: str = "mysqlconnector"
     DEBUG: bool = True
 
-    URI: str = f"mysql+{DRIVER}://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
+    def get_uri(self):
+        return f"mysql+{self.DRIVER}://{self.USER}:{self.PASSWORD}@{self.HOST}:{self.PORT}/{self.DATABASE}"
