@@ -10,4 +10,5 @@ if __name__ == "__main__":
         app="src.server:server",
         reload=config.server.RELOAD,
         port=config.server.PORT,
+        host="0.0.0.0"
     )

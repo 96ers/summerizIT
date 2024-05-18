@@ -91,19 +91,21 @@ async def summarize_by_gpt(Tr: SummarizationRequest):
         messages=[
             {
                 "role": "system",
-                "content": "Please answer as if you are a natural language processing model made for text summarization",
+                "content": "You are a helpful text analyzer that knows how to summarize a text",
             },
             {
                 "role": "user",
-                "content": "Please summarize the following text.The summarize text should shoud be "
+                "content": "Summarize this text denoted by backticks:"
                 + str(Tr.length)
-                + " tokens and if the input is a mix of vietnamese and english the output should also be a mix of vietnamese and english: "
+                + ". Summary should be"
                 + str(Tr.text)
+                + "words long."
             },
         ],
     )
 
-    return {"summarization": completion.choices[0].message.content}
+    response = completion.choices[0].message.content
+    return {"summarization": response}
 
 
 @app.post("/translate/gpt")
