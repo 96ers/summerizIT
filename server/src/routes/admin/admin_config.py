@@ -10,13 +10,16 @@ def create_admin_user():
     if admin:
         return
 
-    print("Create administrator for SummerizIT:")
-    print("User: ")
-    admin_user = input()
-    print("Email:")
-    admin_email = input()
-    print("Password: ")
-    admin_password = input()
+    # print("Create administrator for SummerizIT:")
+    # print("User: ")
+    # admin_user = input()
+    # print("Email:")
+    # admin_email = input()
+    # print("Password: ")
+    # admin_password = input()
+    admin_user = "admin"
+    admin_email = "admin@admin.com"
+    admin_password = "password"
     with Session(engine) as session:
         session.add(
             User(
