@@ -1,6 +1,22 @@
 version: '3.8'
 
 services:
+  server:
+    container_name: server
+    build: .
+    ports:
+      - "9990:9990"
+    command: python main.py
+    volumes:
+      - .:/server
+      - /tmp/app/mysqld:/run/mysqld
+    depends_on:
+      - mysql
+    networks:
+      - server-mysql
+    restart: always
+
+
   mysql:
     image: mysql:8.0
     container_name: dev_mysql
@@ -15,6 +31,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOTPASSWORD}
     networks:
       - awesome_network
+      - server-mysql
+    restart: always
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -30,4 +48,7 @@ services:
 networks:
   awesome_network:
     name: awesome_network
+    driver: bridge
+  server-mysql:
+    name: server-mysql
     driver: bridge
