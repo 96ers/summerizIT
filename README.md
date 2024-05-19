@@ -7,9 +7,10 @@
 Đây là 1 tool cho phép người dùng có thể tóm tắt văn bản đầu vào ở dạng tiếng Anh và dịch văn bản đã tóm tắt đó sang tiếng Việt.
 
 Report: 
-- [Document]()
+- [Document](https://docs.google.com/document/d/1URkyuv_C2SSsYtNu5gWc6Z3dcwwfmbhed4w3-lTxEzs/edit?fbclid=IwZXh0bgNhZW0CMTAAAR0eUyu2_G6jwXAX4kW2zOHcpEkP92G9ykkpEhIpxeOxVAlvLHDSvQjt2dA_aem_AYHzMUGWYPekvqyKVZdzHXUVkAvS30fK4nhSMRLY-uyK7chF_Pt1L5lGPs3rpIreN_fDw39QyqdwNhahnWhSTVGe#heading=h.12nop7awgiff)
 
-- [Video] ()
+
+- [Video](https://drive.google.com/drive/folders/1Q_DyHPz0xmShHvHyOr_PPgryo1ul51JM?usp=sharing)
 # Table of contents
 
 1. [Giới thiệu](#summerizIT)
