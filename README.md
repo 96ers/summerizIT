@@ -1,15 +1,27 @@
 # SummerizIT
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://github.com/tiangolo/fastapi)
+[![React](https://img.shields.io/badge/React-005571?style=for-the-badge&logo=react)](https://reactjs.org/)
 
 Đây là 1 tool cho phép người dùng có thể tóm tắt văn bản đầu vào ở dạng tiếng Anh và dịch văn bản đã tóm tắt đó sang tiếng Việt.
 
+Report: 
+- [Document]()
+
+- [Video] ()
 # Table of contents
 
-1. [Introduction](#introduction)
-2. [Some paragraph](#paragraph1)
-   1. [Sub paragraph](#subparagraph1)
-3. [Another paragraph](#paragraph2)
+1. [Giới thiệu](#summerizIT)
+
+2. [Công nghệ](#tech-stack)
+3. [Kiến thức nhận được](#lessons-learned)
+4. [Triển khai các components trong phần mềm](#deploy-components)
+   1. [Server](server/README.md)
+   2. [Client](client/README.md)
+   3. [ML models](#deploy-components)
+5. [Acknowledgements](#acknowledgements)
+6. [License](#license)
 
 ## Screenshots
 
@@ -19,18 +31,14 @@
 **Client:** React, TailwindCss, React-redux
 
 **Server:** FastAPI
-
-## Features
-
-- Live previews
-- Fullscreen mode
-- Cross platform
-
 ## Lessons Learned
 
-We learn how to team work, how to deploy an AI service 
+- Cách xây dựng một phần mềm
+- Cách sử dụng các thuật toán AI trong việc giải quyết vấn đề cụ thể trong 1 dự án phần mềm
+- Cách tổ chức và hoạt động nhóm 
+- Áp dụng các kiến thức đã học vào một dứ án thực tế
 
-## Run Locally
+## Deploy components
 
 Clone the project
 
@@ -44,35 +52,28 @@ Go to the project directory
 cd summerizIT
 ```
 
-Create environment by conda
+1. Server
+Xem tại [đây](server/README.md)
 
+2. Client
+Xem tại [đây](client/README.md)
+
+3. ML models
 ```bash
-conda env create -f environment.yml
+cd MLmodels
+pip install -r requirements.txt
+python server.py
 ```
-
-Active conda environment
-
-```bash
-conda activate venv
-```
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file  
-`API_KEY`
-
-`ANOTHER_API_KEY`
 
 ## Acknowledgements
-
+- [FastAPI wonder Framework](https://fastapi.tiangolo.com/)
+- [React + Vite + Tailwind](https://vitejs.dev/guide/)
 - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
 - [Awesome README](https://github.com/matiassingers/awesome-readme)
 - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 
-## Feedback
 
-If you have any feedback, please reach out to us at ...
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](LICENSE)
