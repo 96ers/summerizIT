@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 
 from src.database import engine
 from src.models import User, UserRole
+from src.utils import PasswordHandler
 
 
 def create_admin_user():
@@ -16,7 +17,7 @@ def create_admin_user():
     print("Email:")
     admin_email = input()
     print("Password: ")
-    admin_password = input()
+    admin_password = PasswordHandler.hash(input())
     with Session(engine) as session:
         session.add(
             User(

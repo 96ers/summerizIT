@@ -116,7 +116,7 @@ export const AuthDemo = () => {
       try {
         const res = await api.post(
           "summary",
-          { source_text: inputValue },
+          { source_text: inputValue, length: 20 },
           {
             headers: {
               "user-id": user_id,
