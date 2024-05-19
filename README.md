@@ -28,7 +28,7 @@
 
 ## Lessons Learned
 
-What did you learn while building this project? What challenges did you face and how did you overcome t
+We learn how to team work, how to deploy an AI service 
 
 ## Run Locally
 
