@@ -45,7 +45,7 @@ async def summary(
         async with httpx.AsyncClient() as client:
             body = {
                 "text": sum_req.text, 
-                "length": 10
+                "length": input.length
             }
             if input.model.lower() == "bart":
                 api_path = f"{API_URL}/summary/bart"
@@ -114,7 +114,7 @@ async def summary(
     print(input)
     try:
         async with httpx.AsyncClient() as client:
-            body = {"text": input.source_text, "length": 5}
+            body = {"text": input.source_text, "length": input.length}
             if input.model.lower() == "bart":
                 api_path = f"{API_URL}/summary/bart"
             else:
