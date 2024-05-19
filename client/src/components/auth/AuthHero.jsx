@@ -76,7 +76,7 @@ const AuthHero = () => {
         <span className="orange_gradient ">Our AI tool!</span>
       </h1>
       <h2 className="desc">
-        Simplify your reading with <strong>SummazIT!</strong>, an article
+        Simplify your reading with <strong>SummerizIT!</strong>, an article
         summarizer that transforms lengthy articles into clear and concise
         summaries
       </h2>

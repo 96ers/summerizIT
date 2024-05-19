@@ -1,8 +1,7 @@
-import { logo, user_logo } from "../assets";
+import { logo } from "../assets";
 
 import { Link } from "react-router-dom";
 
-import { useSelector } from "react-redux";
 
 const Hero = () => {
   
@@ -30,7 +29,7 @@ const Hero = () => {
         <span className="orange_gradient ">Our AI tool!</span>
       </h1>
       <h2 className="desc">
-        Simplify your reading with <strong>SummazIT!</strong>, an article
+        Simplify your reading with <strong>SummerizIT!</strong>, an article
         summarizer that transforms lengthy articles into clear and concise
         summaries
       </h2>
