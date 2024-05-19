@@ -10,6 +10,8 @@ import {
 } from "../assets";
 import api from "../redux/api";
 import Alert from "./Alert";
+import mammoth from "mammoth";
+
 
 const Demo = () => {
   const [inputType, setInputType] = useState("text");
@@ -17,7 +19,10 @@ const Demo = () => {
   const [showTranslate, setShowTranslate] = useState(false);
   const [copied, setCopied] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [alreadyUsed, setAlreadyUsed] = useState(false);
   const [article, setArticle] = useState({
+    represent: "",
+    file_input: "",
     input: "",
     summary: "",
     translated_summary: "",
@@ -59,6 +64,25 @@ const Demo = () => {
       const file = event.target.files[0];
       if (file) {
         setFileUploaded(true);
+        //use mammoth to extract get text from docx file and set it to file_input
+        mammoth.extractRawText({ arrayBuffer: file})
+          .then((res) => {
+            const fullText = res.value;
+            const normalizedText = fullText.replace(/\s+/g, " ").trim();
+            const words = normalizedText.split(" ");
+            // get the first 3000 words
+            if (words.length < 3000) {
+              setArticle({ ...article, file_input: normalizedText });
+              setInputValue(normalizedText);
+            } else {
+              const slicedText = words.slice(0, 3000).join(" ");
+              setArticle({ ...article, file_input: slicedText });
+              setInputValue(slicedText);
+            }
+          })
+          .catch((error) => {
+            console.log(error.response);
+          });
       }
     }
   };
@@ -66,7 +90,8 @@ const Demo = () => {
   const handleFileUploadClick = (event) => {
     event.preventDefault();
     // handle change in input file
-    if (fileUploaded) {
+    event.preventDefault();
+    if (inputType === "file") {
       setInputType("text");
       setFileUploaded(false);
     } else {
@@ -77,13 +102,20 @@ const Demo = () => {
   // handle form submit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const existingArticle = allArticles.find(
-      (item) => item.input === article.input
-    );
-    if (existingArticle) {
-      return setArticle(existingArticle);
-    }
+    
     if (inputType === "text") {
+      const existingArticle = allArticles.find(
+        (item) => item.input === article.input
+      );
+      if (existingArticle) {
+        setAlreadyUsed(true);
+        setTimeout(() => {
+          setAlreadyUsed(false);
+        }, 3000);
+        return setArticle(existingArticle);
+      } else {
+        setAlreadyUsed(false);
+      }
       console.log(`Input value: ${inputValue}`);
       const response = [];
       setIsFetching(true);
@@ -119,7 +151,72 @@ const Demo = () => {
         setIsFetching(false);
         const newArticle = {
           ...article,
+          represent: inputValue,
           input: inputValue,
+          summary: response[0],
+          translated_summary: response[1],
+        };
+        console.log(`New Article: ${JSON.stringify(newArticle)}`);
+        setArticle(newArticle);
+        const updatedAllArticles = [...allArticles, newArticle];
+        setAllArticles(updatedAllArticles);
+        // save to local storage
+        sessionStorage.setItem("articles", JSON.stringify(updatedAllArticles));
+        setCounter(counter - 1);
+      }
+    } else if (inputType === "file") {
+      //
+      const existingArticle = allArticles.find(
+        (item) => item.file_input === article.file_input
+      );
+      if (existingArticle) {
+        setAlreadyUsed(true);
+        setTimeout(() => {
+          setAlreadyUsed(false);
+        }, 3000);
+        
+        return setArticle(existingArticle);
+      } else {
+        setAlreadyUsed(false);
+      }
+      const response = [];
+      setIsFetching(true);
+      try {
+        const res = await api.post(
+          "summary-free",
+          { source_text: article.file_input },
+          
+        );
+        console.log(res);
+        if (res.data?.summarized_text) {
+          const response_summary = res.data.summarized_text;
+          response.push(response_summary);
+          console.log(`let response_summary: ${response_summary}`);
+          try {
+            const res = await api.post(
+              "translate-free",
+              { source_text: response_summary },
+              
+            );
+            console.log(`translate response: ${JSON.stringify(res.data)}`);
+            if (res.data?.translated_text) {
+              const translated_summary = res.data.translated_text;
+              response.push(translated_summary);
+              console.log(`translated_summary: ${translated_summary}`);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsFetching(false);
+        const newArticle = {
+          ...article,
+          file_input: inputValue,
+          input: "",
+          represent: inputValue,
           summary: response[0],
           translated_summary: response[1],
         };
@@ -164,10 +261,9 @@ const Demo = () => {
           />
           <input
             type={inputType}
-            accept={inputType === "file" ? ".pdf" : ""}
-            placeholder="Enter the text or upload a PDF file"
+            accept={inputType === "file" ? ".docx" : ""}
+            placeholder="Enter the text or upload a .DOCX file"
             className="url_input peer"
-            value={article.input}
             onChange={handleInputChange}
             onKeyDown={(e) => e.key === "Enter" && handleFormSubmit(e)}
             required
@@ -189,21 +285,28 @@ const Demo = () => {
           </button>
         </form>
       </div>
+
+      {/* already uploaded*/}
+      {alreadyUsed && (
+        <p className="text-center text-sm font-bold text-red-500 mt-2">
+          You already used this article. Please try another one!
+        </p>
+      )}
       {/* Show the limited time alert */}
       <Alert count={counter}/>
       {/* Show the history */}
       <div className="flex flex-col gap-1 max-h-60 overflow-y-auto mt-4">
         {allArticles.slice().reverse().map((item, index) => (
           <div key={`link-${index}`} onClick={() => setArticle(item)} className="link_card">
-            <div className="copy_btn" onClick={() => handleCopy(item.input)}>
+            <div className="copy_btn" onClick={() => handleCopy(item.represent)}>
               <img 
-                src={copied === item.input ? tick : copy} 
-                alt={copied === item.input ? "tick_icon" : "copy_icon"}
+                src={copied === item.represent ? tick : copy} 
+                alt={copied === item.represent ? "tick_icon" : "copy_icon"}
                 className='w-[40%] h-[40%] object-contain'
-                title={copied === item.input ? "copied" : "copy"}/>
+                title={copied === item.represent ? "copied" : "copy"}/>
             </div>
             <p className="history_item">
-              {item.input}
+              {item.represent}
             </p>
           </div>
         ))}
