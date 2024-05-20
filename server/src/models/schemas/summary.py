@@ -5,6 +5,7 @@ from datetime import datetime
 class SummaryInput(BaseModel):
     source_text: str
     model: str = "gpt"
+    length: int = 10
 
 
 class SummaryOutput(BaseModel):

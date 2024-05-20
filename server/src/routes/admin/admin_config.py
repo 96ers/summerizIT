@@ -6,12 +6,13 @@ from src.utils import PasswordHandler
 from src.configs import config
 
 
+
 def create_admin_user():
     with Session(engine) as session:
         admin = session.query(User).filter(User.role == UserRole.ADMIN).first()
     if admin:
         return
-
+   
     admin_user = config.admin.USERNAME
     admin_email = config.admin.EMAIL
     admin_password = PasswordHandler(config.admin.PASSWORD)

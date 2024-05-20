@@ -23,7 +23,7 @@ def translate(text, EngToViet):
 
     # splits the text into  segments to translate
     sentences = nltk.sent_tokenize(text)
-    segments = []
+    """segments = []
     segment_token_count = 0
     segment = []
     threshold_token_count = 300
@@ -36,13 +36,13 @@ def translate(text, EngToViet):
             segment_token_count = len(tokens)
         segment.append(sentence)
     if segment:
-        segments.append(" ".join(segment))
+        segments.append(" ".join(segment))"""
 
     # check if cuda is available with code:
     if torch.cuda.is_available():
         model.cuda()
         translated_segments = []
-        for segment in segments:
+        for sentence in sentences:
             outputs = model.generate(
                 tokenizer(
                     Language + segment, return_tensors="pt", padding=True
@@ -56,7 +56,7 @@ def translate(text, EngToViet):
     else:
         print("CUDA is not available. Only CPU will be used.")
         translated_segments = []
-        for segment in segments:
+        for sentence in sentences:
             outputs = model.generate(
                 tokenizer(
                     Language + segment, return_tensors="pt", padding=True

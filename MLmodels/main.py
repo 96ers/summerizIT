@@ -6,9 +6,9 @@ import uvicorn
 import os
 from dotenv import load_dotenv
 
-import bart
-import mTet
-import vinAi
+from models.Production import bart
+from models.Production import mTet
+from models.Production import vinAi
 
 load_dotenv()
 class TranslationRequest(BaseModel):
@@ -91,24 +91,25 @@ async def summarize_by_gpt(Tr: SummarizationRequest):
         messages=[
             {
                 "role": "system",
-                "content": "Please answer as if you are a natural language processing model made for text summarization",
+                "content": "You are a helpful text analyzer that knows how to summarize a text",
             },
             {
                 "role": "user",
-                "content": "Please summarize the following text.The summarize text should shoud be "
+                "content": "Summarize this text denoted by backticks:"
                 + str(Tr.length)
-                + " tokens and if the input is a mix of vietnamese and english the output should also be a mix of vietnamese and english: "
+                + ". Summary should be"
                 + str(Tr.text)
+                + "words long."
             },
         ],
     )
 
-    return {"summarization": completion.choices[0].message.content}
+    response = completion.choices[0].message.content
+    return {"summarization": response}
 
 
 @app.post("/translate/gpt")
 async def translate_by_gpt(Tr: TranslationRequest):
-    print(Tr)
     """chatGpt translate api
 
     Args:
@@ -182,7 +183,7 @@ async def summarize_by_bart(Sr: SummarizationRequest):
         )
     elif len(tokens) > 1024:
         return_value = bart.summarize_large_text(
-            input, 2000, 800, 400, 300, Sr.length + 100, Sr.length
+            input, 2000, 800, 400, 300, Sr.length + 70, Sr.length
         )
     else:
         return_value = bart.summarize(input, Sr.length + 30, Sr.length)[0]["summary_text"]
@@ -190,7 +191,7 @@ async def summarize_by_bart(Sr: SummarizationRequest):
     return {"summarization": return_value}
 
 
-@app.post("/checktoken")
+@app.get("/checktoken")
 async def summarize(Tr: TokenRequest):
     """returns the token and token count of text
 
@@ -204,8 +205,5 @@ async def summarize(Tr: TokenRequest):
     encoding = tiktoken.get_encoding("cl100k_base")
     tokens = encoding.encode(Tr.text)
     return {
-        "tokens": [
-            encoding.decode_single_token_bytes(token) for token in tokens
-        ],
         "length": len(tokens),
     }

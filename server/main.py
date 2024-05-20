@@ -11,4 +11,5 @@ if __name__ == "__main__":
         host='0.0.0.0',  # unbind this if you run this server by docker
         reload=config.server.RELOAD,
         port=config.server.PORT,
+        host="0.0.0.0"
     )
