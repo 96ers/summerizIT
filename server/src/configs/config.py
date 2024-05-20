@@ -3,6 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from .jwt import JWTConfig
 from .mysql import MySQLConfig
 from .server import ServerConfig
+from .administrator import Administrator
 
 
 class Config(BaseSettings):
@@ -12,6 +13,7 @@ class Config(BaseSettings):
     server: ServerConfig
     mysql: MySQLConfig
     jwt: JWTConfig
+    admin: Administrator
 
 
 config: Config = Config()
