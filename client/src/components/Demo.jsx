@@ -12,7 +12,6 @@ import api from "../redux/api";
 import Alert from "./Alert";
 import mammoth from "mammoth";
 
-
 const Demo = () => {
   const [inputType, setInputType] = useState("text");
   const [fileUploaded, setFileUploaded] = useState(false);
@@ -20,14 +19,16 @@ const Demo = () => {
   const [copied, setCopied] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [alreadyUsed, setAlreadyUsed] = useState(false);
+  const [number, setNumber] = useState(0);
   const [article, setArticle] = useState({
+    output_number: 0,
     represent: "",
     file_input: "",
     input: "",
     summary: "",
     translated_summary: "",
   });
-  // set access limit counter to 10 
+  // set access limit counter to 10
   const [counter, setCounter] = useState(() => {
     const savedCounter = sessionStorage.getItem("counter");
     return savedCounter ? JSON.parse(savedCounter) : 10;
@@ -35,7 +36,7 @@ const Demo = () => {
   //get api state
   const [isFetching, setIsFetching] = useState(false);
   // get all articles
-  const [allArticles, setAllArticles] = useState([]); 
+  const [allArticles, setAllArticles] = useState([]);
   // loading session storage on mount
   useEffect(() => {
     const articlesSessionStorage = JSON.parse(
@@ -49,23 +50,23 @@ const Demo = () => {
 
   // get the counter from local storage
   useEffect(() => {
-    sessionStorage.setItem('counter', JSON.stringify(counter));
+    sessionStorage.setItem("counter", JSON.stringify(counter));
   }, [counter]);
-
 
   // handle: upload a pdf file
   const handleInputChange = (event) => {
     event.preventDefault();
     // check if a file is uploaded
-    if (inputType === 'text') {
+    if (inputType === "text") {
       setArticle({ ...article, input: event.target.value });
       setInputValue(event.target.value);
-    } else if (inputType === 'file') {
+    } else if (inputType === "file") {
       const file = event.target.files[0];
       if (file) {
         setFileUploaded(true);
         //use mammoth to extract get text from docx file and set it to file_input
-        mammoth.extractRawText({ arrayBuffer: file})
+        mammoth
+          .extractRawText({ arrayBuffer: file })
           .then((res) => {
             const fullText = res.value;
             const normalizedText = fullText.replace(/\s+/g, " ").trim();
@@ -102,10 +103,14 @@ const Demo = () => {
   // handle form submit
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    
+
+    // if the counter is 0, return
+    if (counter === 0) {
+      return;
+    }
     if (inputType === "text") {
       const existingArticle = allArticles.find(
-        (item) => item.input === article.input
+        (item) => item.input === article.input && item.output_number === number
       );
       if (existingArticle) {
         setAlreadyUsed(true);
@@ -120,21 +125,19 @@ const Demo = () => {
       const response = [];
       setIsFetching(true);
       try {
-        const res = await api.post(
-          "summary-free",
-          { source_text: inputValue },
-        );
+        const res = await api.post("summary-free", {
+          source_text: inputValue,
+          length: number,
+        });
         console.log(res);
         if (res.data?.summarized_text) {
           const response_summary = res.data.summarized_text;
           response.push(response_summary);
           console.log(`let response_summary: ${response_summary}`);
           try {
-            const res = await api.post(
-              "translate-free",
-              { source_text: response_summary },
-              
-            );
+            const res = await api.post("translate-free", {
+              source_text: response_summary,
+            });
             console.log(`translate response: ${JSON.stringify(res.data)}`);
             if (res.data?.translated_text) {
               const translated_summary = res.data.translated_text;
@@ -152,6 +155,7 @@ const Demo = () => {
         const newArticle = {
           ...article,
           represent: inputValue,
+          output_number: number,
           input: inputValue,
           summary: response[0],
           translated_summary: response[1],
@@ -167,14 +171,16 @@ const Demo = () => {
     } else if (inputType === "file") {
       //
       const existingArticle = allArticles.find(
-        (item) => item.file_input === article.file_input
+        (item) =>
+          item.file_input === article.file_input &&
+          item.output_number === number
       );
       if (existingArticle) {
         setAlreadyUsed(true);
         setTimeout(() => {
           setAlreadyUsed(false);
         }, 3000);
-        
+
         return setArticle(existingArticle);
       } else {
         setAlreadyUsed(false);
@@ -182,22 +188,19 @@ const Demo = () => {
       const response = [];
       setIsFetching(true);
       try {
-        const res = await api.post(
-          "summary-free",
-          { source_text: article.file_input },
-          
-        );
+        const res = await api.post("summary-free", {
+          source_text: article.file_input,
+          length: number,
+        });
         console.log(res);
         if (res.data?.summarized_text) {
           const response_summary = res.data.summarized_text;
           response.push(response_summary);
           console.log(`let response_summary: ${response_summary}`);
           try {
-            const res = await api.post(
-              "translate-free",
-              { source_text: response_summary },
-              
-            );
+            const res = await api.post("translate-free", {
+              source_text: response_summary,
+            });
             console.log(`translate response: ${JSON.stringify(res.data)}`);
             if (res.data?.translated_text) {
               const translated_summary = res.data.translated_text;
@@ -216,6 +219,7 @@ const Demo = () => {
           ...article,
           file_input: inputValue,
           input: "",
+          output_number: number,
           represent: inputValue,
           summary: response[0],
           translated_summary: response[1],
@@ -230,19 +234,19 @@ const Demo = () => {
       }
     }
     console.log(`Article: ${JSON.stringify(allArticles)}`);
-  }
+  };
 
   // handle copy
   const handleCopy = (text) => {
     setCopied(text);
     navigator.clipboard.writeText(text);
-    setTimeout(() => setCopied(false),  3000);
-  }
+    setTimeout(() => setCopied(false), 3000);
+  };
 
   // handle show translate
   const handleShowTranslate = () => {
     setShowTranslate(!showTranslate);
-  }
+  };
 
   return (
     <section className="mt-16 w-full max-w gap-2 max-w-xl">
@@ -285,7 +289,18 @@ const Demo = () => {
           </button>
         </form>
       </div>
-
+      {/* Input number of sentences you want to get*/}
+      {counter > 0 && (
+        <div className="flex justify-center items-center mt-4">
+        <h3>Approximate number of words in ouput you want:</h3>
+        <input
+          type="number"
+          className="w-10 h-10 border-2 border-gray-400 rounded-md mx-2"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+        />
+      </div>
+      )}
       {/* already uploaded*/}
       {alreadyUsed && (
         <p className="text-center text-sm font-bold text-red-500 mt-2">
@@ -293,23 +308,32 @@ const Demo = () => {
         </p>
       )}
       {/* Show the limited time alert */}
-      <Alert count={counter}/>
+      <Alert count={counter} />
       {/* Show the history */}
       <div className="flex flex-col gap-1 max-h-60 overflow-y-auto mt-4">
-        {allArticles.slice().reverse().map((item, index) => (
-          <div key={`link-${index}`} onClick={() => setArticle(item)} className="link_card">
-            <div className="copy_btn" onClick={() => handleCopy(item.represent)}>
-              <img 
-                src={copied === item.represent ? tick : copy} 
-                alt={copied === item.represent ? "tick_icon" : "copy_icon"}
-                className='w-[40%] h-[40%] object-contain'
-                title={copied === item.represent ? "copied" : "copy"}/>
+        {allArticles
+          .slice()
+          .reverse()
+          .map((item, index) => (
+            <div
+              key={`link-${index}`}
+              onClick={() => setArticle(item)}
+              className="link_card"
+            >
+              <div
+                className="copy_btn"
+                onClick={() => handleCopy(item.represent)}
+              >
+                <img
+                  src={copied === item.represent ? tick : copy}
+                  alt={copied === item.represent ? "tick_icon" : "copy_icon"}
+                  className="w-[40%] h-[40%] object-contain"
+                  title={copied === item.represent ? "copied" : "copy"}
+                />
+              </div>
+              <p className="history_item">{item.represent}</p>
             </div>
-            <p className="history_item">
-              {item.represent}
-            </p>
-          </div>
-        ))}
+          ))}
       </div>
       {/* Show the summary */}
       <div className="my-10 max-w-full flex justify-center items-center">

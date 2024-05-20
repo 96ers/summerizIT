@@ -58,7 +58,7 @@ const Register = () => {
             Welcome!
           </span>
           <span className="font-light text-gray-400 mb-8">
-            Sign up now and join <strong>SummarIT!</strong>
+            Sign up now and join <strong>SummerizIT!</strong>
           </span>
           <form onSubmit={handleSubmit}>
             <div className="py-2">

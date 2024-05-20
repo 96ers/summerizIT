@@ -54,7 +54,7 @@ const Login = () => {
             Welcome back!
           </span>
           <span className="font-light text-gray-400 mb-8">
-            Sign in to have unlimited access to <strong>SummarIT!</strong>
+            Sign in to have unlimited access to <strong>SummerizIT!</strong>
           </span>
           <form onSubmit={handleSubmit}>
             <div className="py-4">

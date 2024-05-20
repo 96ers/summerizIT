@@ -17,10 +17,12 @@ export const AuthDemo = () => {
   const [fileUploaded, setFileUploaded] = useState(false);
   const [showTranslate, setShowTranslate] = useState(false);
   const [alreadyUsed, setAlreadyUsed] = useState(false);
+  const [number, setNumber] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [copied, setCopied] = useState(false);
   const [article, setArticle] = useState({
     represent: "",
+    output_number: 0,
     file_input: "",
     input: "",
     summary: "",
@@ -99,7 +101,7 @@ export const AuthDemo = () => {
     
     if (inputType === "text") {
       const existingArticle = allArticles.find(
-        (item) => item.input === article.input
+        (item) => item.input === article.input && item.output_number === number
       );
       if (existingArticle) {
         setAlreadyUsed(true);
@@ -116,7 +118,7 @@ export const AuthDemo = () => {
       try {
         const res = await api.post(
           "summary",
-          { source_text: inputValue, length: 20 },
+          { source_text: inputValue, length: Math.round(number*4/3) },
           {
             headers: {
               "user-id": user_id,
@@ -132,7 +134,7 @@ export const AuthDemo = () => {
           try {
             const res = await api.post(
               "translate",
-              { source_text: response_summary },
+              { source_text: response_summary, length: number*4/3},
               {
                 headers: { "user-id": user_id, authorization: access_token },
               }
@@ -154,6 +156,7 @@ export const AuthDemo = () => {
         const newArticle = {
           ...article,
           input: inputValue,
+          output_number: number,
           represent: inputValue,
           summary: response[0],
           translated_summary: response[1],
@@ -227,6 +230,7 @@ export const AuthDemo = () => {
           ...article,
           file_input: inputValue,
           input: "",
+          output_number: number,
           represent: inputValue,
           summary: response[0],
           translated_summary: response[1],
@@ -271,7 +275,7 @@ export const AuthDemo = () => {
           <input
             type={inputType}
             accept={inputType === "file" ? ".docx" : ""}
-            placeholder="Enter the text or upload a PDF file"
+            placeholder="Enter the text or upload a DOCX file"
             className="url_input"
             required
             onChange={handleInputChange}
@@ -291,6 +295,16 @@ export const AuthDemo = () => {
             <img src={submit} alt="Submit" />
           </button>
         </form>
+      </div>
+      {/* Input number of sentences you want to get*/}
+      <div className="flex justify-center items-center mt-4">
+        <h3>Approximate number of words in ouput you want:</h3>
+        <input
+          type="number"
+          className="w-10 h-10 border-2 border-gray-400 rounded-md mx-2"
+          value={number}
+          onChange={(e) => setNumber(e.target.value)}
+        />
       </div>
       {/* already uploaded*/}
       {alreadyUsed && (
