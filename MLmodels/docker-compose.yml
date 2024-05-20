@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  ml:
+    container_name: ml
+    build: .
+    ports:
+    - "8001:8001"
+    command: python server.py
