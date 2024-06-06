@@ -1246,13 +1246,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "starlette-admin"
-version = "0.13.2"
+version = "0.14.0"
 description = "Fast, beautiful and extensible administrative interface framework for Starlette/FastApi applications"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "starlette_admin-0.13.2-py3-none-any.whl", hash = "sha256:95b60ce71f05696df49d95b8664726abb9e3f76a44b49aeea25d1d6b68c039ed"},
-    {file = "starlette_admin-0.13.2.tar.gz", hash = "sha256:4a2ee4e5e24b49aaaa6c034ba7f538a6accdd736c4ae7ea2c38cfb0c2c09bcce"},
+    {file = "starlette_admin-0.14.0-py3-none-any.whl", hash = "sha256:b59a0d1f571898086651c2a02e0a34db8fc68c4c564de66ac66de7a0daa764fd"},
+    {file = "starlette_admin-0.14.0.tar.gz", hash = "sha256:60b517ca9f73ac7eb645f354138a0126dbb84d7bdde53db23deaf38477100dff"},
 ]
 
 [package.dependencies]
@@ -1620,4 +1620,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "2aef5912269ef67f9c09bc89e14a23afcd433cca3510c73dd8d5db0d3746adf7"
+content-hash = "e83c12478753d7035bf2002c9d8a0dec380ef35665ec66ba1732d7d406ccaa9b"
